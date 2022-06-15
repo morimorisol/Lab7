@@ -1,10 +1,10 @@
 package Common.commands;
 
-import lab.common.util.entities.CollectionManager;
-import lab.common.util.entities.Dragon;
-import lab.common.util.handlers.TextFormatter;
-import lab.common.util.requestSystem.Response;
 
+import Common.entities.CollectionManager;
+import Common.entities.Dragon;
+import Common.handlers.TextFormatter;
+import Common.requestSystem.Response;
 
 public class AddCommand extends CommandAbstract {
 

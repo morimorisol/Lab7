@@ -1,5 +1,8 @@
 package Common.commands;
 
+import Common.entities.CollectionManager;
+import Common.entities.Dragon;
+import Common.requestSystem.Response;
 import lab.common.util.entities.CollectionManager;
 import lab.common.util.entities.Dragon;
 import lab.common.util.requestSystem.Response;

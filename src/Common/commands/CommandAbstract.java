@@ -1,6 +1,6 @@
 package Common.commands;
 
-import lab.common.util.entities.CollectionManager;
+import Common.entities.CollectionManager;
 
 import java.io.Serializable;
 

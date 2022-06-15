@@ -1,7 +1,7 @@
 package Common.commands;
 
-import lab.common.util.entities.CollectionManager;
-import lab.common.util.requestSystem.Response;
+import Common.entities.CollectionManager;
+import Common.requestSystem.Response;
 
 import java.util.HashMap;
 import java.util.Map;

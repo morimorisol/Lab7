@@ -1,9 +1,8 @@
 package Common.commands;
 
-import lab.common.util.entities.CollectionManager;
-import lab.common.util.handlers.TextFormatter;
-import lab.common.util.requestSystem.Response;
-
+import Common.entities.CollectionManager;
+import Common.handlers.TextFormatter;
+import Common.requestSystem.Response;
 
 public class ExitCommand extends CommandAbstract {
 
