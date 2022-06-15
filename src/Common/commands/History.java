@@ -6,11 +6,11 @@ import Common.handlers.HistorySaver;
 import Common.handlers.TextFormatter;
 import Common.requestSystem.Response;
 
-public class HistoryCommand extends CommandAbstract {
+public class History extends CommandAbstract {
 
     private static final int COUNT_OF_WATCHABLE_COMMANDS = 11;
 
-    public HistoryCommand() {
+    public History() {
         super("history", "Вывести последние 11 команд (без их аргументов)", 0);
     }
 

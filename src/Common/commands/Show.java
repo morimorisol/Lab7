@@ -1,7 +1,7 @@
 package Common.commands;
 
 import Common.entities.CollectionManager;
-import Common.entities.Dragon;
+import Common.entities.SpaceMarine;
 import Common.requestSystem.Response;
 import lab.common.util.entities.CollectionManager;
 import lab.common.util.entities.Dragon;
@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ShowCommand extends CommandAbstract {
+public class Show extends CommandAbstract {
 
-    public ShowCommand() {
+    public Show() {
         super("show", "вывести на экран элементы коллекции в строковом представлении", 0);
     }
 
     @Override
     public Response execute(CollectionManager manager) {
-        List<Dragon> sortedList = new ArrayList<>(manager.getDragons());
-        sortedList = sortedList.stream().sorted(Dragon::compareByName).collect(Collectors.toList());
+        List<SpaceMarine> sortedList = new ArrayList<>(manager.getDragons());
+        sortedList = sortedList.stream().sorted(SpaceMarine::compareByName).collect(Collectors.toList());
         return new Response(sortedList, "List of dragons: ");
     }
 }

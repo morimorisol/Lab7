@@ -2,16 +2,16 @@ package Common.commands;
 
 
 import Common.entities.CollectionManager;
-import Common.entities.Dragon;
+import Common.entities.SpaceMarine;
 import Common.handlers.TextFormatter;
 import Common.requestSystem.Response;
 
-public class AddCommand extends CommandAbstract {
+public class Add extends CommandAbstract {
 
-    private Dragon dragon;
+    private SpaceMarine dragon;
 
-    public AddCommand(Dragon dragon) {
-        super("add", "Добавить элемент в коллекцию", Dragon.COUNT_OF_PRIMITIVE_ARGS);
+    public Add(SpaceMarine dragon) {
+        super("add", "Добавить элемент в коллекцию", SpaceMarine.COUNT_OF_PRIMITIVE_ARGS);
         this.dragon = dragon;
     }
 
@@ -21,7 +21,7 @@ public class AddCommand extends CommandAbstract {
         return new Response(TextFormatter.colorInfoMessage("Dragon successfully added"));
     }
 
-    public void setDragon(Dragon dragon) {
+    public void setDragon(SpaceMarine dragon) {
         this.dragon = dragon;
     }
 }

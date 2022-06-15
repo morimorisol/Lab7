@@ -5,9 +5,9 @@ import Common.entities.CollectionManager;
 import Common.handlers.TextFormatter;
 import Common.requestSystem.Response;
 
-public class ClearCommand extends CommandAbstract {
+public class Clear extends CommandAbstract {
 
-    public ClearCommand() {
+    public Clear() {
         super("clear", "Очищение коллекции", 0);
     }
 

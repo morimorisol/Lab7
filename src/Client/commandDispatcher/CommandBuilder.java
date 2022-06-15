@@ -1,5 +1,7 @@
 package Client.commandDispatcher;
 
+import Common.commands.CommandAbstract;
+import Common.requestSystem.Serializer;
 import lab.common.util.commands.CommandAbstract;
 import lab.common.util.requestSystem.Serializer;
 

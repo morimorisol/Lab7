@@ -1,5 +1,6 @@
 package Common.handlers;
 
+import Common.entities.SpaceMarine;
 import lab.common.util.entities.Dragon;
 
 import javax.validation.ConstraintViolation;
@@ -17,10 +18,10 @@ public final class DragonValidator {
 
     }
 
-    public static boolean validateDragon(Dragon dragon) {
-        Set<ConstraintViolation<Dragon>> validateResult = VALIDATOR.validate(dragon);
+    public static boolean validateDragon(SpaceMarine spaceMarine) {
+        Set<ConstraintViolation<SpaceMarine>> validateResult = VALIDATOR.validate(spaceMarine);
         if (validateResult.size() > 0) {
-            for (ConstraintViolation<Dragon> violation : validateResult) {
+            for (ConstraintViolation<SpaceMarine> violation : validateResult) {
                 TextFormatter.printErrorMessage(violation.getPropertyPath() + " " + violation.getMessage());
             }
             return false;

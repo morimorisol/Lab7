@@ -1,16 +1,16 @@
 package Common.commands;
 
 import Common.entities.CollectionManager;
-import Common.entities.Dragon;
+import Common.entities.SpaceMarine;
 import Common.handlers.TextFormatter;
 import Common.requestSystem.Response;
 
-public class AddIfMinCommand extends CommandAbstract {
+public class AddIfMin extends CommandAbstract {
 
-    private final Dragon dragon;
+    private final SpaceMarine dragon;
 
-    public AddIfMinCommand(Dragon dragon) {
-        super("add_if_min", "Добавить дракона в коллекцию, если его возраст меньше, чем у самого младшего в коллекции", Dragon.COUNT_OF_PRIMITIVE_ARGS);
+    public AddIfMin(SpaceMarine dragon) {
+        super("add_if_min", "Добавить дракона в коллекцию, если его возраст меньше, чем у самого младшего в коллекции", SpaceMarine.COUNT_OF_PRIMITIVE_ARGS);
         this.dragon = dragon;
     }
 

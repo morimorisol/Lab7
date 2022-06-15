@@ -3,9 +3,9 @@ package Common.commands;
 import Common.entities.CollectionManager;
 import Common.requestSystem.Response;
 
-public class InfoCommand extends CommandAbstract {
+public class Info extends CommandAbstract {
 
-    public InfoCommand() {
+    public Info() {
         super("info", "Вывести информацию о коллекции", 0);
     }
 

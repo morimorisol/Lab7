@@ -1,5 +1,12 @@
 package Client.commandDispatcher;
 
+import Common.entities.Coordinates;
+import Common.entities.DragonCave;
+import Common.entities.SpaceMarine;
+import Common.enums.AstartesCategory;
+import Common.enums.WeaponType;
+import Common.handlers.DragonValidator;
+import Common.handlers.TextFormatter;
 import lab.common.util.entities.Coordinates;
 import lab.common.util.entities.Dragon;
 import lab.common.util.entities.DragonCave;
@@ -19,16 +26,16 @@ public class ArgumentsListener {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public Dragon inputDragon(String name, String age, String wingspan) {
-        Dragon dragon = new Dragon();
+    public SpaceMarine inputDragon(String name, String age, String wingspan) {
+        SpaceMarine spaceMarine = new SpaceMarine();
         name = name.substring(0, 1).toUpperCase() + name.substring(1);
         try {
-            dragon.setName(name);
-            dragon.setAge(Integer.parseInt(age));
-            dragon.setWingspan(Integer.parseInt(wingspan));
-            boolean correctName = DragonValidator.validateField(dragon, "name");
-            boolean correctAge = DragonValidator.validateField(dragon, "age");
-            boolean correctWingspan = DragonValidator.validateField(dragon, "wingspan");
+            spaceMarine.setName(name);
+            spaceMarine.setAge(Integer.parseInt(age));
+            spaceMarine.setWingspan(Integer.parseInt(wingspan));
+            boolean correctName = DragonValidator.validateField(spaceMarine, "name");
+            boolean correctAge = DragonValidator.validateField(spaceMarine, "age");
+            boolean correctWingspan = DragonValidator.validateField(spaceMarine, "wingspan");
             if (!correctName | !correctAge | !correctWingspan) {
                 return null;
             }
@@ -36,51 +43,51 @@ public class ArgumentsListener {
             TextFormatter.printErrorMessage("Аргументы имеют неверный формат");
             return null;
         }
-        dragon.setCoordinates(inputCoordinates());
-        inputColor(dragon);
-        inputCharacter(dragon);
-        dragon.setCave(inputCave());
-        return dragon;
+        spaceMarine.setCoordinates(inputCoordinates());
+        inputColor(spaceMarine);
+        inputCharacter(spaceMarine);
+        spaceMarine.setCave(inputCave());
+        return spaceMarine;
     }
 
-    public Dragon inputDragonWithPrimitives() {
-        Dragon dragon = new Dragon();
-        inputPrimitives(dragon);
-        dragon.setCoordinates(inputCoordinates());
-        inputColor(dragon);
-        inputCharacter(dragon);
-        dragon.setCave(inputCave());
-        return dragon;
+    public SpaceMarine inputDragonWithPrimitives() {
+        SpaceMarine spaceMarine = new SpaceMarine();
+        inputPrimitives(spaceMarine);
+        spaceMarine.setCoordinates(inputCoordinates());
+        inputColor(spaceMarine);
+        inputCharacter(spaceMarine);
+        spaceMarine.setCave(inputCave());
+        return spaceMarine;
     }
 
     /**
      * Метод обработки и инициализации данных примитивных типов для переданного
      * в аргументе дракона
      *
-     * @param dragon дракон, характеристики примитивных типов которого вводит пользователь
+     * @param spaceMarine дракон, характеристики примитивных типов которого вводит пользователь
      */
-    public void inputPrimitives(Dragon dragon) {
+    public void inputPrimitives(SpaceMarine spaceMarine) {
         TextFormatter.printMessage("Enter primitives args of dragon: name age[>0], wingspan[>0]");
         String[] inputArray = scanner.nextLine().split(" ");
         if (inputArray.length == 3) {
             try {
-                dragon.setName(inputArray[0]);
-                dragon.setAge(Integer.parseInt(inputArray[1]));
-                dragon.setWingspan(Integer.parseInt(inputArray[2]));
-                boolean correctName = DragonValidator.validateField(dragon, "name");
-                boolean correctAge = DragonValidator.validateField(dragon, "age");
-                boolean correctWingspan = DragonValidator.validateField(dragon, "wingspan");
+                spaceMarine.setName(inputArray[0]);
+                spaceMarine.setAge(Integer.parseInt(inputArray[1]));
+                spaceMarine.setWingspan(Integer.parseInt(inputArray[2]));
+                boolean correctName = DragonValidator.validateField(spaceMarine, "name");
+                boolean correctAge = DragonValidator.validateField(spaceMarine, "age");
+                boolean correctWingspan = DragonValidator.validateField(spaceMarine, "wingspan");
                 if (!correctName | !correctAge | !correctWingspan) {
                     TextFormatter.printErrorMessage("Введенные данные некорректны");
-                    inputPrimitives(dragon);
+                    inputPrimitives(spaceMarine);
                 }
             } catch (IllegalArgumentException e) {
                 TextFormatter.printErrorMessage("Введены некорректные данные, верный формат: name age[>0] wingspan[>0]");
-                inputPrimitives(dragon);
+                inputPrimitives(spaceMarine);
             }
         } else {
             TextFormatter.printErrorMessage("Incorrect count of primitive args. Needed: name age[>0], wingspan[>0]");
-            inputPrimitives(dragon);
+            inputPrimitives(spaceMarine);
         }
     }
 
@@ -195,35 +202,35 @@ public class ArgumentsListener {
     /**
      * Метод обработки цвета дракона, полученного от пользователя
      *
-     * @param dragon дракон, цвет которого запрашивается у пользователя
+     * @param spaceMarine дракон, цвет которого запрашивается у пользователя
      */
-    public void inputColor(Dragon dragon) {
-        TextFormatter.printInfoMessage("Введите цвет дракона, доступные цвета: " + Arrays.toString(Color.values()) + ", если у дракона нет цвета, нажмите Enter: ");
+    public void inputColor(SpaceMarine spaceMarine) {
+        TextFormatter.printInfoMessage("Введите цвет дракона, доступные цвета: " + Arrays.toString(AstartesCategory.values()) + ", если у дракона нет цвета, нажмите Enter: ");
         try {
             String color = scanner.nextLine().toUpperCase();
             if ("".equals(color)) {
-                dragon.setColor(null);
+                spaceMarine.setAstartesCategory(null);
             } else {
-                dragon.setColor(Color.valueOf(color));
+                spaceMarine.setAstartesCategory(AstartesCategory.valueOf(color));
             }
         } catch (IllegalArgumentException e) {
             TextFormatter.printErrorMessage("Ошибка ввода, такого цвета не существует");
-            inputColor(dragon);
+            inputColor(spaceMarine);
         }
     }
 
     /**
      * Метод обработки характера дракона, полученного от пользователя
      *
-     * @param dragon дракон, характер которого запрашивается у пользователя
+     * @param spaceMarine дракон, характер которого запрашивается у пользователя
      */
-    public void inputCharacter(Dragon dragon) {
-        TextFormatter.printInfoMessage("Введите настроение дракона, доступные настроения: " + Arrays.toString(DragonCharacter.values()) + ": ");
+    public void inputCharacter(SpaceMarine spaceMarine) {
+        TextFormatter.printInfoMessage("Введите настроение дракона, доступные настроения: " + Arrays.toString(WeaponType.values()) + ": ");
         try {
-            dragon.setCharacter(DragonCharacter.valueOf(scanner.nextLine().toUpperCase()));
+            spaceMarine.setWeaponType(WeaponType.valueOf(scanner.nextLine().toUpperCase()));
         } catch (IllegalArgumentException e) {
             TextFormatter.printErrorMessage("Ошибка ввода, такого настроения не существует");
-            inputCharacter(dragon);
+            inputCharacter(spaceMarine);
         }
     }
 }

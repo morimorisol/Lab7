@@ -4,9 +4,9 @@ import Common.entities.CollectionManager;
 import Common.handlers.TextFormatter;
 import Common.requestSystem.Response;
 
-public class ExitCommand extends CommandAbstract {
+public class Exit extends CommandAbstract {
 
-    public ExitCommand() {
+    public Exit() {
         super("exit", "Выход из программы с сохранением", 0);
     }
 

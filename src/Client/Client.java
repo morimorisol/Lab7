@@ -1,10 +1,14 @@
 package Client;
 
+import Client.commandDispatcher.LineSplitter;
+import Client.dataController.CommandSender;
+import Client.dataController.ResponseReceiver;
+import Common.handlers.TextFormatter;
 import lab.client.commandDispatcher.LineSplitter;
 import lab.client.dataController.CommandSender;
 import lab.client.dataController.ResponseReceiver;
 import lab.common.util.handlers.TextFormatter;
-import lab.common.util.requestSystem.Response;
+import Common.requestSystem.Response;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;

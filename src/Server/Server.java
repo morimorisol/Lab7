@@ -3,7 +3,7 @@ package Server;
 //import com.thoughtworks.xstream.converters.ConversionException;
 //import com.thoughtworks.xstream.io.StreamException;
 import Common.commands.CommandAbstract;
-import Common.entities.Dragon;
+import Common.entities.SpaceMarine;
 import Common.handlers.HistorySaver;
 import Common.requestSystem.Response;
 import Common.requestSystem.Serializer;
@@ -44,6 +44,7 @@ public final class Server {
         //String fileName = args[0];
         // file = new File(ServerConfig.starting, fileName); // Initialize file from cmd
         //file = new File("C:\\Users\\Дмитрий\\JavaProjects\\LaboratoryWorks-1st-Year-PROGRAMMING\\LaboratoryWork6\\lab6\\d.xml");
+        //public static String collectionPath = System.getenv("labCollection");
         file = new File("C:\\Users\\User\\IdeaProjects\\lisairaa\\LaboratoryWorks-1st-Year-PROGRAMMING\\LaboratoryWork6\\docs\\Dragons.xml");
         fillCollectionFromFile(file);
         try {
@@ -111,7 +112,7 @@ public final class Server {
     private static void fillCollectionFromFile(File file) {
         XMLReader reader = new XMLReader();
         try {
-            for (Dragon dragon : reader.read(file)) {
+            for (SpaceMarine dragon : reader.read(file)) {
                 ServerConfig.manager.addDragon(dragon);
                 if (dragon.getCreationDate() == null) {
                     dragon.setCreationDate();
@@ -119,13 +120,13 @@ public final class Server {
             }
             ServerConfig.logger.info("Collection successfully filled");
         } catch (IOException e) {
-            ServerConfig.logger.fatal("File doesn't exist");
+            ServerConfig.logger.info("File doesn't exist");
             System.exit(0);
         } catch (StreamException e) {
-            ServerConfig.logger.fatal("File is empty");
+            ServerConfig.logger.info("File is empty");
             System.exit(0);
         } catch (NullPointerException | ConversionException e) {
-            ServerConfig.logger.fatal("Can't parse file, data is incorrect");
+            ServerConfig.logger.info("Can't parse file, data is incorrect");
             System.exit(0);
         }
     }

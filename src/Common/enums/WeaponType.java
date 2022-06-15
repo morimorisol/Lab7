@@ -5,10 +5,10 @@ import java.io.Serializable;
 /**
  * Перечисление доступных настроений драконов
  */
-public enum DragonCharacter implements Serializable {
-    WISE,
-    GOOD,
-    CHAOTIC,
-    CHAOTIC_EVIL,
-    FICKLE;
+public enum WeaponType implements Serializable{
+    HEAVY_BOLTGUN,
+    BOLT_RIFLE,
+    COMBI_FLAMER,
+    COMBI_PLASMA_GUN,
+    GRENADE_LAUNCHER;
 }

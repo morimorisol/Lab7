@@ -1,5 +1,6 @@
 package Client.dataController;
 
+import Client.commandDispatcher.CommandBuilder;
 import lab.client.commandDispatcher.CommandBuilder;
 
 import java.io.IOException;

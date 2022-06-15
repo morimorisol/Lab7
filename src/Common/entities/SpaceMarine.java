@@ -1,5 +1,9 @@
 package Common.entities;
 
+import Common.enums.AstartesCategory;
+import Common.enums.DragonCharacter;
+import Common.enums.WeaponType;
+import com.sun.istack.internal.NotNull;
 import lab.common.util.enums.Color;
 import lab.common.util.enums.DragonCharacter;
 
@@ -16,7 +20,7 @@ import java.util.Objects;
 /**
  * Класс объектов, хранимых в коллекции, которой управляет программа
  */
-public class Dragon implements Comparable<Dragon>, Serializable {
+public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
 
     /**
      * Количество полей примитивного типа, которые необходимо передавать при инициализации
@@ -67,7 +71,7 @@ public class Dragon implements Comparable<Dragon>, Serializable {
      * Цвет текущего дракона
      * <strong>(Поле может быть null)</strong>
      */
-    private Color color;
+    private AstartesCategory astartesCategory;
     /**
      * Характер текущего дракона
      * <strong>(Поле не может быть null)</strong>
@@ -85,7 +89,7 @@ public class Dragon implements Comparable<Dragon>, Serializable {
     /**
      * Конструктор объекта данного класса
      */
-    public Dragon() {
+    public SpaceMarine() {
         this.creationDate = new Date();
     }
 
@@ -193,10 +197,10 @@ public class Dragon implements Comparable<Dragon>, Serializable {
     /**
      * Метод, устанавливающий значение поля color у текущего элемента коллекции
      *
-     * @param color цвет дракона
+     * @param astartesCategory цвет дракона
      */
-    public void setColor(Color color) {
-        this.color = color;
+    public void setAstartesCategory(AstartesCategory astartesCategory) {
+        this.astartesCategory= astartesCategory;
     }
 
     /**
@@ -204,20 +208,20 @@ public class Dragon implements Comparable<Dragon>, Serializable {
      *
      * @return цвет дракона
      */
-    public Color getColor() {
-        return this.color;
+    public AstartesCategory getAstartesCategory() {
+        return this.astartesCategory;
     }
 
     /**
      * Метод, устанавливающий значение поля character у текущего элемента коллекции
      *
-     * @param character характер дракона
+     * @param weaponType характер дракона
      */
-    public void setCharacter(DragonCharacter character) {
-        if (character == null) {
+    public void setWeaponType(WeaponType weaponType) {
+        if (weaponType == null) {
             throw new IllegalArgumentException("Не передан характер дракона, попробуйте снова");
         }
-        this.character = character;
+        this.weaponType = weaponType;
     }
 
     /**
@@ -225,8 +229,8 @@ public class Dragon implements Comparable<Dragon>, Serializable {
      *
      * @return характер дракона
      */
-    public DragonCharacter getCharacter() {
-        return this.character;
+    public WeaponType getWeaponType() {
+        return this.weaponType;
     }
 
     /**
@@ -267,14 +271,14 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         return creationDate;
     }
 
-    public int compareByCave(Dragon o) {
+    public int compareByCave(SpaceMarine o) {
         if (o == null) {
             return 1;
         }
         return getCave().compareTo(o.getCave());
     }
 
-    public int compareByName(Dragon o) {
+    public int compareByName(SpaceMarine o) {
         if (o == null) {
             return 1;
         }
@@ -282,11 +286,11 @@ public class Dragon implements Comparable<Dragon>, Serializable {
     }
 
     @Override
-    public int compareTo(Dragon o) {
+    public int compareTo(SpaceMarine o) {
         if (o == null) {
             return 1;
         }
-        return Comparator.comparing(Dragon::getAge).thenComparing(Dragon::getName).thenComparing(Dragon::getWingspan).compare(this, o);
+        return Comparator.comparing(SpaceMarine::getAge).thenComparing(SpaceMarine::getName).thenComparing(SpaceMarine::getWingspan).compare(this, o);
     }
 
     @Override
@@ -300,21 +304,21 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Dragon dragon = (Dragon) obj;
+        SpaceMarine spaceMarine = (SpaceMarine) obj;
 
-        return getName().equals(dragon.getName())
-                && age == dragon.age
-                && coordinates.equals(dragon.coordinates)
-                && wingspan == dragon.wingspan
-                && cave.equals(dragon.cave)
-                && id == dragon.id
-                && color.equals(dragon.color)
-                && character.equals(dragon.character);
+        return getName().equals(spaceMarine.getName())
+                && age == spaceMarine.age
+                && coordinates.equals(spaceMarine.coordinates)
+                && wingspan == spaceMarine.wingspan
+                && cave.equals(spaceMarine.cave)
+                && id == spaceMarine.id
+                && astartesCategory.equals(spaceMarine.astartesCategory)
+                && weaponType.equals(spaceMarine.weaponType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, coordinates, cave, color, character, age, wingspan, creationDate);
+        return Objects.hash(id, name, coordinates, cave, astartesCategory, weaponType, age, wingspan, creationDate);
     }
 
     @Override
@@ -322,7 +326,7 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         return "\nDragon #" + id + "\nname: " + name
                 + "\ncreationDate: " + getCreationDate()
                 + "\nage: " + age + "\nwingspan: " + wingspan
-                + "\ncoordinates: " + coordinates.toString() + "\ncolor: " + color
-                + "\ncharacter: " + character + "\ncave: " + cave.toString() + "\n========================";
+                + "\ncoordinates: " + coordinates.toString() + "\nastartesCategory: " + astartesCategory
+                + "\nweaponType: " + weaponType + "\ncave: " + cave.toString() + "\n========================";
     }
 }

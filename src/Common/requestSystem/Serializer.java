@@ -1,5 +1,6 @@
 package Common.requestSystem;
 
+import Common.commands.CommandAbstract;
 import lab.common.util.commands.CommandAbstract;
 
 import java.io.*;

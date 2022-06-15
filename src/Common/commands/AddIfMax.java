@@ -1,16 +1,16 @@
 package Common.commands;
 
 import Common.entities.CollectionManager;
-import Common.entities.Dragon;
+import Common.entities.SpaceMarine;
 import Common.handlers.TextFormatter;
 import Common.requestSystem.Response;
 
-public class AddIfMaxCommand extends CommandAbstract {
+public class AddIfMax extends CommandAbstract {
 
-    private final Dragon dragon;
+    private final SpaceMarine dragon;
 
-    public AddIfMaxCommand(Dragon dragon) {
-        super("add_if_max", "Добавить дракона в коллекцию, если он старше всех существующих", Dragon.COUNT_OF_PRIMITIVE_ARGS);
+    public AddIfMax(SpaceMarine dragon) {
+        super("add_if_max", "Добавить дракона в коллекцию, если он старше всех существующих", SpaceMarine.COUNT_OF_PRIMITIVE_ARGS);
         this.dragon = dragon;
     }
 

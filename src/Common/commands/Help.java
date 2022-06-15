@@ -6,13 +6,13 @@ import Common.requestSystem.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HelpCommand extends CommandAbstract {
+public class Help extends CommandAbstract {
     /**
      * Словарь, сопоставляющий доступные команды с соответствующими командами
      */
     private static final Map<String, String> COMMANDS = new HashMap<>();
 
-    public HelpCommand() {
+    public Help() {
         super("help", "Вывести список доступных команд", 0);
     }
 

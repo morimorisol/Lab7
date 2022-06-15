@@ -1,5 +1,6 @@
 package Common.requestSystem;
 
+import Common.entities.SpaceMarine;
 import lab.common.util.entities.Dragon;
 
 import java.io.Serializable;
@@ -8,15 +9,15 @@ import java.util.List;
 public class Response implements Serializable {
 
     private final String message;
-    private List<Dragon> dragons = null;
+    private List<SpaceMarine> spaceMarines = null;
     private int countOfDragons = 0;
 
     public Response(String message) {
         this.message = message;
     }
 
-    public Response(List<Dragon> dragons, String message) {
-        this.dragons = dragons;
+    public Response(List<SpaceMarine> dragons, String message) {
+        this.spaceMarines = dragons;
         this.message = message;
         this.countOfDragons = dragons.size();
     }
@@ -25,8 +26,8 @@ public class Response implements Serializable {
         return message;
     }
 
-    public List<Dragon> getDragons() {
-        return dragons;
+    public List<SpaceMarine> getDragons() {
+        return spaceMarines;
     }
 
     public int getCountOfDragons() {

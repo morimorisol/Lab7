@@ -2,7 +2,7 @@ package Server.fileHandlers;
 
 import com.thoughtworks.xstream.XStream;
 import Common.entities.CollectionManager;
-import Common.entities.Dragon;
+import Common.entities.SpaceMarine;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,7 +22,7 @@ public class XMLWriter {
      */
     public static void write(File file, CollectionManager dragons) throws IOException {
         XStream xStream = new XStream();
-        xStream.alias("dragon", Dragon.class);
+        xStream.alias("dragon", SpaceMarine.class);
         xStream.alias("set", CollectionManager.class);
         xStream.addImplicitCollection(CollectionManager.class, "dragons");
         String xmlText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" + xStream.toXML(dragons.getDragons());

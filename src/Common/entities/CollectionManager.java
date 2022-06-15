@@ -1,5 +1,6 @@
 package Common.entities;
 
+import Common.handlers.TextFormatter;
 import lab.common.util.handlers.TextFormatter;
 
 import java.util.Date;
@@ -18,14 +19,14 @@ public class CollectionManager {
     /**
      * Сет объектов класса Dragon, текущее содержимое коллекции
      */
-    private HashSet<Dragon> dragons;
+    private HashSet<SpaceMarine> spaceMarines;
 
     /**
      * Конструктор объекта данного класса.
      * Устанавливает коллекцию и дату её создания
      */
     public CollectionManager() {
-        dragons = new HashSet<>();
+        spaceMarines = new HashSet<>();
         creationDate = new Date();
     }
 
@@ -34,8 +35,8 @@ public class CollectionManager {
      *
      * @return HashSet драконов, находящихся в коллекции
      */
-    public HashSet<Dragon> getDragons() {
-        return dragons;
+    public HashSet<SpaceMarine> getDragons() {
+        return spaceMarines;
     }
 
     /**
@@ -43,16 +44,16 @@ public class CollectionManager {
      *
      * @param dragon дракон, которого нужно добавить в коллекцию
      */
-    public void addDragon(Dragon dragon) {
+    public void addDragon(SpaceMarine dragon) {
         dragon.setId();
-        dragons.add(dragon);
+        spaceMarines.add(dragon);
     }
 
     /**
      * Метод, очищающий текущую коллекцию
      */
     public void clear() {
-        dragons.clear();
+        spaceMarines.clear();
         if (this.getDragons().isEmpty()) {
             TextFormatter.printInfoMessage("Collection successful cleared");
         } else {
@@ -67,9 +68,9 @@ public class CollectionManager {
      */
     public String removeById(long id) {
         try {
-            Dragon dragon = getById(id);
-            if (dragon != null) {
-                dragons.remove(dragon);
+            SpaceMarine spaceMarine = getById(id);
+            if (spaceMarine != null) {
+                spaceMarines.remove(spaceMarine);
                 return TextFormatter.colorInfoMessage("Dragon successfully removed");
             } else {
                 return TextFormatter.colorErrorMessage("Dragon with that ID not found");
@@ -79,8 +80,8 @@ public class CollectionManager {
         }
     }
 
-    public Dragon getById(Long id) {
-        return dragons.stream().filter(dr -> dr.getId().equals(id)).findAny().orElse(null);
+    public SpaceMarine getById(Long id) {
+        return spaceMarines.stream().filter(dr -> dr.getId().equals(id)).findAny().orElse(null);
     }
 
     /**
@@ -88,20 +89,20 @@ public class CollectionManager {
      */
     public String showInfo() {
         return TextFormatter.colorInfoMessage("Information about collection: ")
-                + TextFormatter.colorMessage("Collection type: " + dragons.getClass()
+                + TextFormatter.colorMessage("Collection type: " + spaceMarines.getClass()
                 + " initialization date: " + creationDate
-                + " count of dragons: " + dragons.size());
+                + " count of dragons: " + spaceMarines.size());
     }
 
-    public Dragon getMaxByCave() {
-        return dragons.stream().max(Dragon::compareByCave).get();
+    public SpaceMarine getMaxByCave() {
+        return spaceMarines.stream().max(SpaceMarine::compareByCave).get();
     }
 
-    public Dragon getMax() {
-        return dragons.stream().max(Dragon::compareTo).get();
+    public SpaceMarine getMax() {
+        return spaceMarines.stream().max(SpaceMarine::compareTo).get();
     }
 
-    public Dragon getMin() {
-        return dragons.stream().min(Dragon::compareTo).get();
+    public SpaceMarine getMin() {
+        return spaceMarines.stream().min(SpaceMarine::compareTo).get();
     }
 }
