@@ -47,7 +47,8 @@ public class CollectionManager {
     }
 
     public SpaceMarine getById(int id) {
-        return spaceMarines.stream().filter(sm -> sm.getId().equals(id)).findAny().orElse(null);
+        return null;
+                //spaceMarines.stream().filter(sm -> sm.getId().equals(id)).findAny().orElse(null);
     }
 
     public String showInfo() {

@@ -98,7 +98,7 @@ public class CommandFactory {
                         return null;
                     }
                     int idOfSpaceMarine = Integer.parseInt(args.get(0));
-                    spaceMarine = listener.inputSpaceMarineWithPrimitives(category);
+                    spaceMarine = listener.inputSpaceMarineWithPrimitives();
                     return new UpdateById(idOfSpaceMarine, spaceMarine);
                 default:
                     throw new CommandNotFoundException("Команда с данным именем не найдена");

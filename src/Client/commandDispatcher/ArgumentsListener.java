@@ -133,45 +133,51 @@ public class ArgumentsListener {
         Chapter chapter = new Chapter();
         inputName(chapter);
         inputParentLegion(chapter);
+        inputMarinesCount(chapter);
         return chapter;
     }
 
-    private void inputDepth(DragonCave cave) {
+    private void inputParentLegion(Chapter chapter) {
         TextFormatter.printInfoMessage("Введите глубину пещеры (число с плавающей точкой): ");
         try {
-            cave.setDepth(Double.parseDouble(scanner.nextLine()));
+            chapter.setMarinesCount(Long.parseLong(scanner.nextLine()));
         } catch (NumberFormatException e) {
             TextFormatter.printErrorMessage("Ошибка ввода");
-            inputDepth(cave);
+            inputParentLegion(chapter);
         }
     }
 
-    private void inputNumOfTreasures(DragonCave cave) {
-        TextFormatter.printInfoMessage("Введите количество сокровищ (целое число, большее 0): ");
+    private void inputName(Chapter chapter) {
+        TextFormatter.printInfoMessage("Введите имя части: ");
         try {
-            cave.setNumberOfTreasures(Integer.parseInt(scanner.nextLine()));
+            chapter.setName(scanner.nextLine());
         } catch (NumberFormatException e) {
             TextFormatter.printErrorMessage("Ошибка ввода");
-            inputNumOfTreasures(cave);
+            inputName(chapter);
         } catch (IllegalArgumentException e) {
             TextFormatter.printErrorMessage(e.getMessage());
-            inputNumOfTreasures(cave);
+            inputName(chapter);
+        }
+    }
+
+    private void inputMarinesCount(Chapter chapter) {
+        TextFormatter.printInfoMessage("Введите количество сокровищ (целое число, большее 0): ");
+        try {
+            chapter.setMarinesCount(Integer.parseInt(scanner.nextLine()));
+        } catch (NumberFormatException e) {
+            TextFormatter.printErrorMessage("Ошибка ввода");
+            inputMarinesCount(chapter);
         }
     }
 
 
     public void inputAstartesCategory(SpaceMarine spaceMarine) {
-        TextFormatter.printInfoMessage("Введите достижения корабля, доступные достижения: " + Arrays.toString(AstartesCategory.values()) + ", если у дракона нет достижения, нажмите Enter: ");
+        TextFormatter.printInfoMessage("Введите тип оружия, доступные типы: " + Arrays.toString(WeaponType.values()) + ": ");
         try {
-            String color = scanner.nextLine().toUpperCase();
-            if ("".equals(color)) {
-                spaceMarine.setAstartesCategory(null);
-            } else {
-                spaceMarine.setAstartesCategory(AstartesCategory.valueOf(color));
-            }
+            spaceMarine.setWeaponType(WeaponType.valueOf(scanner.nextLine().toUpperCase()));
         } catch (IllegalArgumentException e) {
-            TextFormatter.printErrorMessage("Ошибка ввода, такого цвета не существует");
-            inputAstartesCategory(spaceMarine);
+            TextFormatter.printErrorMessage("Ошибка ввода, такого типа оружия не существует");
+            inputWeaponType(spaceMarine);
         }
     }
 
