@@ -44,8 +44,8 @@ public final class Server {
         //String fileName = args[0];
         // file = new File(ServerConfig.starting, fileName); // Initialize file from cmd
         //file = new File("C:\\Users\\Дмитрий\\JavaProjects\\LaboratoryWorks-1st-Year-PROGRAMMING\\LaboratoryWork6\\lab6\\d.xml");
-        //public static String collectionPath = System.getenv("labCollection");
-        file = new File("C:\\Users\\User\\IdeaProjects\\lisairaa\\LaboratoryWorks-1st-Year-PROGRAMMING\\LaboratoryWork6\\docs\\Dragons.xml");
+        String collectionPath = System.getenv("labCollection");
+        file = new File(collectionPath);
         fillCollectionFromFile(file);
         try {
             selector = Selector.open();
@@ -122,12 +122,12 @@ public final class Server {
         } catch (IOException e) {
             ServerConfig.logger.info("File doesn't exist");
             System.exit(0);
-        } catch (StreamException e) {
+        } /*catch (StreamException e) {
             ServerConfig.logger.info("File is empty");
             System.exit(0);
         } catch (NullPointerException | ConversionException e) {
             ServerConfig.logger.info("Can't parse file, data is incorrect");
             System.exit(0);
-        }
+        } */
     }
 }

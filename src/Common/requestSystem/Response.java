@@ -1,7 +1,6 @@
 package Common.requestSystem;
 
 import Common.entities.SpaceMarine;
-import lab.common.util.entities.Dragon;
 
 import java.io.Serializable;
 import java.util.List;

@@ -6,7 +6,7 @@ import java.util.Comparator;
 /**
  * Класс пещеры дракона, объекты которого присваиваются полю cave элементов коллекции
  */
-public class DragonCave implements Serializable, Comparable<DragonCave> {
+public class Chapter implements Serializable, Comparable<Chapter> {
     /**
      * Глубина текущей пещеры
      */
@@ -68,10 +68,12 @@ public class DragonCave implements Serializable, Comparable<DragonCave> {
     }
 
     @Override
-    public int compareTo(DragonCave o) {
+    public int compareTo(Chapter o) {
         if (o == null) {
             return 1;
         }
-        return Comparator.comparing(DragonCave::getDepth).thenComparing(DragonCave::getNumberOfTreasures).compare(this, o);
+        return Comparator.comparing(Chapter::getDepth).thenComparing(Chapter::getNumberOfTreasures).compare(this, o);
     }
+
+
 }

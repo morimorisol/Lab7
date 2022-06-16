@@ -1,17 +1,8 @@
 package Common.entities;
 
 import Common.enums.AstartesCategory;
-import Common.enums.DragonCharacter;
 import Common.enums.WeaponType;
-import com.sun.istack.internal.NotNull;
-import lab.common.util.enums.Color;
-import lab.common.util.enums.DragonCharacter;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
@@ -31,74 +22,23 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
      * Счетчик id элементов, служит для обеспечения уникальности поля id у каждого элемента
      */
     private static long idCounter = 1;
-    /**
-     * id текущего элемента коллекции
-     * <strong>(Значение поля должно быть больше 0, значение этого поля должно быть уникальным,
-     * значение этого поля должно генерироваться автоматически)</strong>
-     */
-    @Min(1)
-    private long id;
-    /**
-     * Имя текущего элемента коллекции
-     * <strong>(Поле не может быть null, строка не может быть пустой)</strong>
-     */
-    @NotNull
-    @Pattern(regexp = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
-    @Size(min = 1, max = 70)
-    private String name;
-    /**
-     * Координаты текущего элемента коллекции
-     * <strong>(Поле не может быть null)</strong>
-     */
-    @Valid
-    @NotNull
-    private Coordinates coordinates;
+    public int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    public String name; //Поле не может быть null, Строка не может быть пустой
+    public Coordinates coordinates;//Поле не может быть null
+    public static Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    public Long health; //Поле не может быть null, Значение поля должно быть больше 0
+    public String achievements; //Поле не может быть null
+    public AstartesCategory category; //Поле может быть null
+    public WeaponType weaponType; //Поле не может быть null
+    public Chapter chapter; //Поле не может быть null
 
-    private Date creationDate;
-    /**
-     * Возраст текущего дракона
-     * <strong>(Значение поля должно быть больше 0)</strong>
-     */
-    @Min(1)
-    private int age;
-    /**
-     * Размах крыльев текущего дракона
-     * <strong>(Значение поля должно быть больше 0)</strong>
-     */
-    @Min(1)
-    private int wingspan;
-    /**
-     * Цвет текущего дракона
-     * <strong>(Поле может быть null)</strong>
-     */
-    private AstartesCategory astartesCategory;
-    /**
-     * Характер текущего дракона
-     * <strong>(Поле не может быть null)</strong>
-     */
-    @NotNull
-    private DragonCharacter character;
-    /**
-     * Пещера текущего дракона
-     * <strong>(Поле не может быть null)</strong>
-     */
-    @Valid
-    @NotNull
-    private DragonCave cave;
-
-    /**
-     * Конструктор объекта данного класса
-     */
-    public SpaceMarine() {
-        this.creationDate = new Date();
-    }
 
     /**
      * Метод, устанавливающий id текущему элементу коллекции. Генерация происходит автоматически,
      * аргументы на вход не поступают
      */
     public void setId() {
-        this.id = idCounter++;
+        this.id = (int) idCounter++;
     }
 
     /**
@@ -106,7 +46,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
      *
      * @return id дракона
      */
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -152,16 +92,11 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         return this.coordinates;
     }
 
-    /**
-     * Метод, установливающий значение поля age текущему элементу коллекции
-     *
-     * @param age значение возраста дракона
-     */
-    public void setAge(int age) {
-        if (age <= 0) {
+    public void setHealth(long health) {
+        if (health <= 0) {
             throw new IllegalArgumentException("Некорректный возраст дракона, попробуйте снова");
         }
-        this.age = age;
+        this.health = health;
     }
 
     /**
@@ -169,17 +104,12 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
      *
      * @return значение возраста дракона
      */
-    public int getAge() {
-        return this.age;
+    public long getHealth() {
+        return this.health;
     }
 
-    /**
-     * Метод, устанавливающий значение поля wingspan у текущего элемента коллекции
-     *
-     * @param wingspan значение размаха крыльев дракона
-     */
-    public void setWingspan(int wingspan) {
-        if (wingspan <= 0) {
+    public void setWingspan(String achievements) {
+        if (achievements == null) {
             throw new IllegalArgumentException("Некорректный размах крыльев дракона, попробуйте снова");
         }
         this.wingspan = wingspan;
@@ -233,49 +163,32 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         return this.weaponType;
     }
 
-    /**
-     * Метод, устанавливающий значение поля cave текущего элемента коллекции
-     *
-     * @param cave пещера дракона
-     */
-    public void setCave(DragonCave cave) {
-        if (cave == null) {
+    public void setCave(Chapter chapter) {
+        if (chapter == null) {
             throw new IllegalArgumentException("Не переданы данные о пещере или они некорректны, попробуйте снова");
         }
-        this.cave = cave;
+        this.chapter = chapter;
     }
 
-    /**
-     * Метод, возвращающий объект, находящийся в поле cave у текущего элемента коллекции
-     *
-     * @return пещера дракона
-     */
-    public DragonCave getCave() {
-        return this.cave;
+    public Chapter getCapter() {
+        return this.chapter;
     }
 
-    /**
-     * Метод, устанавливающий значение поля creationDate у текущего элемента коллекции.
-     * Значение генерируется автоматически, аргументов нет
-     */
+
     public void setCreationDate() {
         this.creationDate = new Date();
     }
 
-    /**
-     * Метод, возвращающий значение поля creationDate у текущего элемента коллекции
-     *
-     * @return дата создания дракона
-     */
+
     public Date getCreationDate() {
         return creationDate;
     }
 
-    public int compareByCave(SpaceMarine o) {
+    public int compareByChapter(SpaceMarine o) {
         if (o == null) {
             return 1;
         }
-        return getCave().compareTo(o.getCave());
+        return getChapter().compareTo(o.getCapter());
     }
 
     public int compareByName(SpaceMarine o) {

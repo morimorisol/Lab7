@@ -4,7 +4,6 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 import Common.entities.CollectionManager;
 import Common.entities.SpaceMarine;
-import Common.handlers.DragonValidator;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,9 +19,9 @@ public class XMLReader {
     public HashSet<SpaceMarine> read(File file) throws IOException, NumberFormatException {
         XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY);
-        xStream.alias("dragon", SpaceMarine.class);
+        xStream.alias("space marine", SpaceMarine.class);
         xStream.alias("set", CollectionManager.class);
-        xStream.addImplicitCollection(CollectionManager.class, "dragons");
+        xStream.addImplicitCollection(CollectionManager.class, "marines");
         StringBuilder xmlText = new StringBuilder();
         FileReader reader = new FileReader(file);
         Scanner sc = new Scanner(reader);
@@ -39,8 +38,8 @@ public class XMLReader {
     }
 
     private boolean fileIsCorrect(CollectionManager manager) {
-        for (SpaceMarine dragon : manager.getDragons()) {
-            if (!DragonValidator.validateDragon(dragon)) {
+        for (SpaceMarine marine : manager.getMarines()) {
+            if (marine == null) {
                 return false;
             }
         }
