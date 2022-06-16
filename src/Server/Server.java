@@ -10,6 +10,8 @@ import Common.requestSystem.Serializer;
 import Server.exceptions.DisconnectInitException;
 import Server.fileHandlers.XMLReader;
 import Server.fileHandlers.XMLWriter;
+import com.thoughtworks.xstream.converters.ConversionException;
+import com.thoughtworks.xstream.io.StreamException;
 
 import java.io.File;
 import java.io.IOException;
@@ -122,12 +124,12 @@ public final class Server {
         } catch (IOException e) {
             ServerConfig.logger.info("File doesn't exist");
             System.exit(0);
-        } /*catch (StreamException e) {
+        } catch (StreamException e) {
             ServerConfig.logger.info("File is empty");
             System.exit(0);
         } catch (NullPointerException | ConversionException e) {
             ServerConfig.logger.info("Can't parse file, data is incorrect");
             System.exit(0);
-        } */
+        }
     }
 }

@@ -1,7 +1,7 @@
 package Common.entities;
 
 import Common.handlers.TextFormatter;
-import lab.common.util.handlers.TextFormatter;
+
 
 import java.util.Date;
 import java.util.HashSet;
@@ -94,8 +94,8 @@ public class CollectionManager {
                 + " count of dragons: " + spaceMarines.size());
     }
 
-    public SpaceMarine getMaxByCave() {
-        return spaceMarines.stream().max(SpaceMarine::compareByCave).get();
+    public SpaceMarine getMaxByChapter() {
+        return spaceMarines.stream().max(SpaceMarine::compareByChapter).get();
     }
 
     public SpaceMarine getMax() {

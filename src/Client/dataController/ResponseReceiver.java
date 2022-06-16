@@ -1,7 +1,8 @@
 package Client.dataController;
 
-import lab.common.util.requestSystem.Response;
-import lab.common.util.requestSystem.Serializer;
+import Common.requestSystem.Response;
+import Common.requestSystem.Serializer;
+
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

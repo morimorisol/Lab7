@@ -4,10 +4,6 @@ import Client.commandDispatcher.LineSplitter;
 import Client.dataController.CommandSender;
 import Client.dataController.ResponseReceiver;
 import Common.handlers.TextFormatter;
-import lab.client.commandDispatcher.LineSplitter;
-import lab.client.dataController.CommandSender;
-import lab.client.dataController.ResponseReceiver;
-import lab.common.util.handlers.TextFormatter;
 import Common.requestSystem.Response;
 
 import java.io.IOException;
@@ -102,7 +98,7 @@ public final class Client {
                     String input = sc.nextLine();
                     List<String> splittedLine = LineSplitter.smartSplit(input);
                     if (splittedLine.get(0).equalsIgnoreCase("execute_script") && splittedLine.size() == 2) {
-                        lab.client.ScriptReader scriptReader = new lab.client.ScriptReader(input);
+                        ScriptReader scriptReader = new ScriptReader(input);
                         startSelectorLoop(channel, new Scanner(scriptReader.getPath()));
                         scriptReader.stopScriptReading();
                     }

@@ -1,7 +1,6 @@
 package Client.commandDispatcher;
 
 import Common.commands.CommandAbstract;
-import lab.common.util.commands.CommandAbstract;
 
 import java.io.IOException;
 import java.util.List;
