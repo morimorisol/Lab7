@@ -16,8 +16,8 @@ public class Show extends CommandAbstract {
 
     @Override
     public Response execute(CollectionManager manager) {
-        List<SpaceMarine> sortedList = new ArrayList<>(manager.getDragons());
+        List<SpaceMarine> sortedList = new ArrayList<>(manager.getSpaceMarines());
         sortedList = sortedList.stream().sorted(SpaceMarine::compareByName).collect(Collectors.toList());
-        return new Response(sortedList, "List of dragons: ");
+        return new Response(sortedList, "Список кораблей: ");
     }
 }

@@ -31,7 +31,7 @@ public final class Server {
     static File file;
 
     private Server() {
-        throw new UnsupportedOperationException("This is an utility class and can not be instantiated");
+        throw new UnsupportedOperationException("Не может быть создан экземпляр класса");
     }
 
     public static void main(String[] args) {
@@ -42,10 +42,7 @@ public final class Server {
     }
 
     private static void startServer(String[] args) {
-        ServerConfig.logger.info("Server started");
-        //String fileName = args[0];
-        // file = new File(ServerConfig.starting, fileName); // Initialize file from cmd
-        //file = new File("C:\\Users\\Дмитрий\\JavaProjects\\LaboratoryWorks-1st-Year-PROGRAMMING\\LaboratoryWork6\\lab6\\d.xml");
+        ServerConfig.logger.info("Сервер запущен");
         String collectionPath = System.getenv("labCollection");
         file = new File(collectionPath);
         fillCollectionFromFile(file);
@@ -54,9 +51,9 @@ public final class Server {
             ServerSocketChannel server = initChannel(selector);
             startSelectorLoop(server);
         } catch (IOException e) {
-            ServerConfig.logger.info("Some problems with IO. Try again");
+            ServerConfig.logger.info("Некоторые проблемы с IO. Попробуйте снова");
         } catch (ClassNotFoundException e) {
-            ServerConfig.logger.info("Trying to serialize non-serializable object");
+            ServerConfig.logger.info("Попробуйте сериализовать несериализованный объект");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -78,23 +75,23 @@ public final class Server {
 
             if (key.isAcceptable()) {
                 SocketChannel socketChannel = channel.accept();
-                ServerConfig.logger.info("Server get connection from " + socketChannel.getLocalAddress());
+                ServerConfig.logger.info("Сервер соединен с " + socketChannel.getLocalAddress());
                 socketChannel.configureBlocking(false);
                 socketChannel.register(selector, SelectionKey.OP_READ);
             } else if (key.isReadable()) {
                 SocketChannel socketChannel = (SocketChannel) key.channel();
-                ServerConfig.logger.info("Client " + socketChannel.getLocalAddress() + " trying to send message");
+                ServerConfig.logger.info("Клиант " + socketChannel.getLocalAddress() + " отправил сообщение");
                 CommandAbstract command = IOController.getCommand(socketChannel);
-                ServerConfig.logger.info("Server recieve [" + command.getName() + "] command");
+                ServerConfig.logger.info("Сервер получил [" + command.getName() + "] команду");
                 HistorySaver.addCommandInHistory(command);
                 try {
                     Response response = IOController.buildResponse(command, ServerConfig.manager);
                     ByteBuffer buffer = Serializer.serializeResponse(response);
                     socketChannel.write(buffer);
-                    ServerConfig.logger.info("Server wrote response to client");
+                    ServerConfig.logger.info("Сервер написал ответ клиенту");
                 } catch (DisconnectInitException e) {
                     XMLWriter.write(file, ServerConfig.manager);
-                    ServerConfig.logger.info("Client " + socketChannel.getLocalAddress() + " init disconnect. Collection successfully saved");
+                    ServerConfig.logger.info("Клиент " + socketChannel.getLocalAddress() + " отсоединен. Коллекция успешно сохранена");
                     socketChannel.close();
                     break;
                 }
@@ -104,7 +101,7 @@ public final class Server {
 
     private static ServerSocketChannel initChannel(Selector selector) throws IOException {
         ServerSocketChannel server = ServerSocketChannel.open();
-        ServerConfig.logger.info("Socket opened");
+        ServerConfig.logger.info("Сокет открылся");
         server.socket().bind(new InetSocketAddress(ServerConfig.SERVER_PORT));
         server.configureBlocking(false);
         server.register(selector, SelectionKey.OP_ACCEPT);
@@ -114,21 +111,21 @@ public final class Server {
     private static void fillCollectionFromFile(File file) {
         XMLReader reader = new XMLReader();
         try {
-            for (SpaceMarine dragon : reader.read(file)) {
-                ServerConfig.manager.addDragon(dragon);
-                if (dragon.getCreationDate() == null) {
-                    dragon.setCreationDate();
+            for (SpaceMarine spaceMarine : reader.read(file)) {
+                ServerConfig.manager.addSpaceMarines(spaceMarine);
+                if (spaceMarine.getCreationDate() == null) {
+                    spaceMarine.setCreationDate();
                 }
             }
-            ServerConfig.logger.info("Collection successfully filled");
+            ServerConfig.logger.info("Коллекция успешно заполнена");
         } catch (IOException e) {
-            ServerConfig.logger.info("File doesn't exist");
+            ServerConfig.logger.info("Файл не существует");
             System.exit(0);
         } catch (StreamException e) {
-            ServerConfig.logger.info("File is empty");
+            ServerConfig.logger.info("Файл пустой");
             System.exit(0);
         } catch (NullPointerException | ConversionException e) {
-            ServerConfig.logger.info("Can't parse file, data is incorrect");
+            ServerConfig.logger.info("Данные некорректны");
             System.exit(0);
         }
     }

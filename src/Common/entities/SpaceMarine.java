@@ -24,7 +24,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
     public String name; //Поле не может быть null, Строка не может быть пустой
     public Coordinates coordinates;//Поле не может быть null
     public static Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    public Long health; //Поле не может быть null, Значение поля должно быть больше 0
+    public long health; //Поле не может быть null, Значение поля должно быть больше 0
     public String achievements; //Поле не может быть null
     public AstartesCategory category; //Поле может быть null
     public WeaponType weaponType; //Поле не может быть null

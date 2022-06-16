@@ -7,29 +7,29 @@ import Common.requestSystem.Response;
 
 public class UpdateById extends CommandAbstract {
 
-    private long id;
-    private SpaceMarine dragon;
+    private int id;
+    private SpaceMarine spaceMarine;
 
-    public UpdateById(long id, SpaceMarine dragon) {
+    public UpdateById(int id, SpaceMarine spaceMarine) {
         super("update_by_id", "Обновить данные о элементе коллекции по данному id", 1);
-        this.dragon = dragon;
+        this.spaceMarine = spaceMarine;
         this.id = id;
     }
 
     @Override
     public Response execute(CollectionManager manager) {
         boolean flag = false;
-        for (SpaceMarine elem : manager.getDragons()) {
+        for (SpaceMarine elem : manager.getSpaceMarines()) {
             if (elem.getId() == id) {
                 manager.removeById(id);
                 flag = true;
             }
         }
         if (flag) {
-            manager.addDragon(dragon);
-            return new Response(TextFormatter.colorInfoMessage("Info about dragon successfully updated"));
+            manager.addSpaceMarines(spaceMarine);
+            return new Response(TextFormatter.colorInfoMessage("Информация о кораблях успешно обновлена"));
         } else {
-            return new Response(TextFormatter.colorInfoMessage("ID not found"));
+            return new Response(TextFormatter.colorInfoMessage("ID не найдено"));
         }
     }
 }

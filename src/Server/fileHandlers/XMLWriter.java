@@ -25,7 +25,7 @@ public class XMLWriter {
         xStream.alias("dragon", SpaceMarine.class);
         xStream.alias("set", CollectionManager.class);
         xStream.addImplicitCollection(CollectionManager.class, "dragons");
-        String xmlText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" + xStream.toXML(dragons.getDragons());
+        String xmlText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" + xStream.toXML(dragons.getSpaceMarines());
         FileWriter writer = new FileWriter(file);
         writer.write(xmlText);
         writer.flush();

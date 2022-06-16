@@ -34,11 +34,11 @@ public class XMLReader {
             System.out.println("Ошибка чтения файла на уровне валидации");
             System.exit(0);
         }
-        return manager.getDragons();
+        return manager.getSpaceMarines();
     }
 
     private boolean fileIsCorrect(CollectionManager manager) {
-        for (SpaceMarine marine : manager.getMarines()) {
+        for (SpaceMarine marine : manager.getSpaceMarines()) {
             if (marine == null) {
                 return false;
             }

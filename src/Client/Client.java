@@ -89,8 +89,8 @@ public final class Client {
                 ResponseReceiver responseReceiver = new ResponseReceiver(channel, key, selector);
                 Response response = responseReceiver.receive();
                 TextFormatter.printInfoMessage(response.getMessage());
-                if (response.getDragons() != null) {
-                    TextFormatter.printMessage(response.getDragons().toString());
+                if (response.getSpaceMarines() != null) {
+                    TextFormatter.printMessage(response.getSpaceMarines().toString());
                 }
             } else if (key.isWritable()) {
                 TextFormatter.printInfoMessage("Enter command (to check available commands type \"help\"): ");

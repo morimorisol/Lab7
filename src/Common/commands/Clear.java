@@ -14,6 +14,6 @@ public class Clear extends CommandAbstract {
     @Override
     public Response execute(CollectionManager manager) {
         manager.clear();
-        return new Response(TextFormatter.colorInfoMessage("Collection successfully cleared"));
+        return new Response(TextFormatter.colorInfoMessage("Коллекция успешно очищена"));
     }
 }

@@ -9,27 +9,27 @@ public class Response implements Serializable {
 
     private final String message;
     private List<SpaceMarine> spaceMarines = null;
-    private int countOfDragons = 0;
+    private int countOfSpaceMarines = 0;
 
     public Response(String message) {
         this.message = message;
     }
 
-    public Response(List<SpaceMarine> dragons, String message) {
-        this.spaceMarines = dragons;
+    public Response(List<SpaceMarine> spaceMarines, String message) {
+        this.spaceMarines = spaceMarines;
         this.message = message;
-        this.countOfDragons = dragons.size();
+        this.countOfSpaceMarines = spaceMarines.size();
     }
 
     public String getMessage() {
         return message;
     }
 
-    public List<SpaceMarine> getDragons() {
+    public List<SpaceMarine> getSpaceMarines() {
         return spaceMarines;
     }
 
-    public int getCountOfDragons() {
-        return countOfDragons;
+    public int getCountOfSpaceMarines() {
+        return countOfSpaceMarines;
     }
 }

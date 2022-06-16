@@ -19,7 +19,7 @@ public class CommandFactory {
                     if (args.size() != 3) {
                         return null;
                     }
-                    spaceMarine = listener.inputDragon(args.get(0), args.get(1), args.get(2));
+                    spaceMarine = listener.inputSpaceMarine(args.get(0), Long.parseLong(args.get(1)), args.get(2));
                     if (spaceMarine == null) {
                         throw new IllegalArgumentException("Аргументы команды некорректны");
                     }
@@ -28,7 +28,7 @@ public class CommandFactory {
                     if (args.size() != 3) {
                         return null;
                     }
-                    spaceMarine = listener.inputDragon(args.get(0), args.get(1), args.get(2));
+                    spaceMarine = listener.inputSpaceMarine(args.get(0), Long.parseLong(args.get(1)), args.get(2));
                     if (spaceMarine == null) {
                         throw new IllegalArgumentException("Аргументы команды некорректны");
                     }
@@ -37,7 +37,7 @@ public class CommandFactory {
                     if (args.size() != 3) {
                         return null;
                     }
-                    spaceMarine = listener.inputDragon(args.get(0), args.get(1), args.get(2));
+                    spaceMarine = listener.inputSpaceMarine(args.get(0), Long.parseLong(args.get(1)), args.get(2));
                     if (spaceMarine == null) {
                         throw new IllegalArgumentException("Аргументы команды некорректны");
                     }
@@ -71,7 +71,7 @@ public class CommandFactory {
                     if (args.size() != 0) {
                         return null;
                     }
-                    return new MaxByCave();
+                    return new MaxByChapter();
                 case "print_ascending":
                     if (args.size() != 0) {
                         return null;
@@ -86,7 +86,7 @@ public class CommandFactory {
                     if (args.size() != 1) {
                         return null;
                     }
-                    long id = Long.parseLong(args.get(0));
+                    int id = Integer.parseInt(args.get(0));
                     return new RemoveById(id);
                 case "show":
                     if (args.size() != 0) {
@@ -97,14 +97,14 @@ public class CommandFactory {
                     if (args.size() != 1) {
                         return null;
                     }
-                    long idOfDragon = Long.parseLong(args.get(0));
-                    spaceMarine = listener.inputDragonWithPrimitives(astartesCategory);
-                    return new UpdateById(idOfDragon, spaceMarine);
+                    int idOfSpaceMarine = Integer.parseInt(args.get(0));
+                    spaceMarine = listener.inputSpaceMarineWithPrimitives(category);
+                    return new UpdateById(idOfSpaceMarine, spaceMarine);
                 default:
-                    throw new CommandNotFoundException("Command with current name not found");
+                    throw new CommandNotFoundException("Команда с данным именем не найдена");
             }
         } catch (IndexOutOfBoundsException e) {
-            TextFormatter.printErrorMessage("Incorrect count of args");
+            TextFormatter.printErrorMessage("Некорректные данные");
             return null;
         }
     }

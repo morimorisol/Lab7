@@ -3,68 +3,54 @@ package Common.entities;
 import java.io.Serializable;
 import java.util.Comparator;
 
-/**
- * Класс пещеры дракона, объекты которого присваиваются полю cave элементов коллекции
- */
-public class Chapter implements Serializable, Comparable<Chapter> {
-    /**
-     * Глубина текущей пещеры
-     */
-    private double depth;
-    /**
-     * Количество сокровищ в текущей пещере
-     * <strong>(Значение поля должно быть больше 0)</strong>
-     */
-    private int numberOfTreasures;
 
-    /**
-     * Метод, устанавливающий объекту пещеры глубину
-     *
-     * @param depth глубина пещеры, диапазон допустимых значений совпадает с диапазоном типа double
-     */
-    public void setDepth(double depth) {
-        if (depth >= Double.MAX_VALUE) {
+public class Chapter implements Serializable, Comparable<Chapter> {
+
+    private String name;
+    private String parentLegion;
+    private long marinesCount;
+
+
+    public void setMarinesCount(long marinesCount) {
+        if (marinesCount >= Long.parseLong("1000")) {
             throw new IllegalArgumentException("Значение слишком большое, попробуйте снова");
         }
-        if (depth <= Double.MIN_VALUE) {
+        if (marinesCount <= Long.parseLong("1000")) {
             throw new IllegalArgumentException("Значение слишком маленькое, попробуйте снова");
         }
-        this.depth = depth;
+        this.marinesCount = marinesCount;
     }
 
-    /**
-     * Метод, устанавливающий объекту пещеры количество сокровищ
-     *
-     * @param numberOfTreasures количество сокровищ, диапазон допустимых значений (0; ]
-     */
-    public void setNumberOfTreasures(int numberOfTreasures) {
-        if (numberOfTreasures <= 0) {
-            throw new IllegalArgumentException("Некорректное количество сокровищ в пещере, попробуйте снова");
+
+    public void setName(String name) {
+        if (name == null | name.isEmpty()) {
+            throw new IllegalArgumentException("Некорректное имя части, попробуйте снова");
         }
-        this.numberOfTreasures = numberOfTreasures;
+        this.name = name;
+    }
+    public void setParentLegion(String parentLegion) {
+        if (parentLegion == null | parentLegion.isEmpty()) {
+            throw new IllegalArgumentException("Некорректное имя родительского легиона, попробуйте снова");
+        }
+        this.parentLegion = parentLegion;
     }
 
-    /**
-     * Метод, возвращающий глубину текущей пещеры
-     *
-     * @return глубина пещеры
-     */
-    public double getDepth() {
-        return depth;
+
+    public long getMarinesCount() {
+        return marinesCount;
     }
 
-    /**
-     * Метод, возвращающий количество сокровищ в данной пещере
-     *
-     * @return количество сокровищ
-     */
-    public int getNumberOfTreasures() {
-        return numberOfTreasures;
+
+    public String getName() {
+        return name;
+    }
+    public String getParentLegion() {
+        return parentLegion;
     }
 
     @Override
     public String toString() {
-        return "depth: " + depth + " numbers of treasures: " + numberOfTreasures;
+        return "имя: " + name + " родительский легион: " + parentLegion + " количество кораблей: " + marinesCount;
     }
 
     @Override
@@ -72,7 +58,7 @@ public class Chapter implements Serializable, Comparable<Chapter> {
         if (o == null) {
             return 1;
         }
-        return Comparator.comparing(Chapter::getDepth).thenComparing(Chapter::getNumberOfTreasures).compare(this, o);
+        return Comparator.comparing(Chapter::getMarinesCount).compare(this, o);
     }
 
 

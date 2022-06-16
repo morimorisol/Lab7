@@ -12,6 +12,6 @@ public class Exit extends CommandAbstract {
 
     @Override
     public Response execute(CollectionManager manager) {
-        return new Response(TextFormatter.colorInfoMessage("Connection disabled"));
+        return new Response(TextFormatter.colorInfoMessage("Соединение прервалось"));
     }
 }

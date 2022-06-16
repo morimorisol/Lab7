@@ -13,13 +13,13 @@ import java.util.List;
 public class PrintAscending extends CommandAbstract {
 
     public PrintAscending() {
-        super("print_ascending", "Вывести драконов коллекции от младшего к старшему", 0);
+        super("print_ascending", "Вывести корабли коллекции от менее здоровому к более", 0);
     }
 
     @Override
     public Response execute(CollectionManager manager) {
-        List<SpaceMarine> dragons = new ArrayList<>(manager.getDragons());
-        Collections.sort(dragons);
-        return new Response(dragons, TextFormatter.colorInfoMessage("List of dragons compared of age: "));
+        List<SpaceMarine> spaceMarines = new ArrayList<>(manager.getSpaceMarines());
+        Collections.sort(spaceMarines);
+        return new Response(spaceMarines, TextFormatter.colorInfoMessage("Список кораблей по здоровью: "));
     }
 }

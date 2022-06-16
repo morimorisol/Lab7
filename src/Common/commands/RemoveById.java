@@ -5,10 +5,10 @@ import Common.requestSystem.Response;
 
 public class RemoveById extends CommandAbstract {
 
-    private final long id;
+    private final int id;
 
-    public RemoveById(long id) {
-        super("remove_by_id", "удалить дракона с текущим значением id", 1);
+    public RemoveById(int id) {
+        super("remove_by_id", "удалить корабль с текущим значением id", 1);
         this.id = id;
     }
 

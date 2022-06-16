@@ -8,10 +8,10 @@ import Common.requestSystem.Response;
 
 public class History extends CommandAbstract {
 
-    private static final int COUNT_OF_WATCHABLE_COMMANDS = 11;
+    private static final int COUNT_OF_WATCHABLE_COMMANDS = 9;
 
     public History() {
-        super("history", "Вывести последние 11 команд (без их аргументов)", 0);
+        super("history", "Вывести последние 9 команд (без их аргументов)", 0);
     }
 
     @Override
