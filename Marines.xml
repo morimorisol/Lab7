@@ -1,103 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<set>
-  <dragon>
-    <id>1</id>
-    <name>Babidjon</name>
-    <coordinates>
-      <x>228</x>
-      <y>228.0</y>
-    </coordinates>
-    <creationDate>2022-04-08 16:57:15.329 UTC</creationDate>
-    <age>228</age>
-    <wingspan>228</wingspan>
-    <color>ORANGE</color>
-    <character>CHAOTIC</character>
-    <cave>
-      <depth>1.0E15</depth>
-      <numberOfTreasures>1337</numberOfTreasures>
-    </cave>
-  </dragon>
-  <dragon>
-    <id>5</id>
-    <name>Serega</name>
-    <coordinates>
-      <x>0</x>
-      <y>0.0</y>
-    </coordinates>
-    <creationDate>2022-02-11 12:49:52.514 UTC</creationDate>
-    <age>18</age>
-    <wingspan>175</wingspan>
-    <color>BLUE</color>
-    <character>CHAOTIC</character>
-    <cave>
-      <depth>15.3</depth>
-      <numberOfTreasures>3</numberOfTreasures>
-    </cave>
-  </dragon>
-  <dragon>
-    <id>3</id>
-    <name>Buba</name>
-    <coordinates>
-      <x>132</x>
-      <y>3232.0</y>
-    </coordinates>
-    <creationDate>2022-03-18 21:38:31.311 UTC</creationDate>
-    <age>12</age>
-    <wingspan>43</wingspan>
-    <character>WISE</character>
-    <cave>
-      <depth>323232.0</depth>
-      <numberOfTreasures>432</numberOfTreasures>
-    </cave>
-  </dragon>
-  <dragon>
-    <id>6</id>
-    <name>Vafel</name>
-    <coordinates>
-      <x>603</x>
-      <y>123231.0</y>
-    </coordinates>
-    <creationDate>2022-02-18 02:02:04.100 UTC</creationDate>
-    <age>11</age>
-    <wingspan>443</wingspan>
-    <character>WISE</character>
-    <cave>
-      <depth>432432.0</depth>
-      <numberOfTreasures>5444</numberOfTreasures>
-    </cave>
-  </dragon>
-  <dragon>
-    <id>4</id>
-    <name>Dimas</name>
-    <coordinates>
-      <x>43</x>
-      <y>1.0</y>
-    </coordinates>
-    <creationDate>2022-02-11 12:49:52.514 UTC</creationDate>
-    <age>19</age>
-    <wingspan>32</wingspan>
-    <color>YELLOW</color>
-    <character>CHAOTIC_EVIL</character>
-    <cave>
-      <depth>17.1</depth>
-      <numberOfTreasures>2</numberOfTreasures>
-    </cave>
-  </dragon>
-  <dragon>
-    <id>2</id>
-    <name>Ivan</name>
-    <coordinates>
-      <x>12</x>
-      <y>123.4</y>
-    </coordinates>
-    <creationDate>2022-02-11 12:51:13.977 UTC</creationDate>
-    <age>26</age>
-    <wingspan>170</wingspan>
-    <color>BLUE</color>
-    <character>WISE</character>
-    <cave>
-      <depth>123.7</depth>
-      <numberOfTreasures>14331134</numberOfTreasures>
-    </cave>
-  </dragon>
-</set>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<article lang="">
+  <para>&lt;?xml version="1.0" encoding="UTF-8"?&gt; &#13;</para>
+  <para>&lt;set&gt;&#13;</para>
+  <para>  &lt;marine&gt;&#13;</para>
+  <para>    &lt;id&gt;1&lt;/id&gt;&#13;</para>
+  <para>    &lt;name&gt;Pilot&lt;/name&gt;&#13;</para>
+  <para>    &lt;coordinates&gt;&#13;</para>
+  <para>      &lt;x&gt;228&lt;/x&gt;&#13;</para>
+  <para>      &lt;y&gt;228.0&lt;/y&gt;&#13;</para>
+  <para>    &lt;/coordinates&gt;&#13;</para>
+  <para>    &lt;creationDate&gt;2022-04-08 16:57:15.329 UTC&lt;/creationDate&gt;&#13;</para>
+  <para>    &lt;health&gt;228&lt;/health&gt;&#13;</para>
+  <para>    &lt;achievement&gt;Victory&lt;/achievement&gt;&#13;</para>
+  <para>    &lt;category&gt;ORANGE&lt;/category&gt;&#13;</para>
+  <para>    &lt;weaponType&gt;CHAOTIC&lt;/weaponType&gt;&#13;</para>
+  <para>    &lt;capther&gt;&#13;</para>
+  <para>      &lt;name&gt;Stars&lt;/name&gt;&#13;</para>
+  <para>      &lt;parentLegion&gt;Space&lt;/parentLegion&gt;&#13;</para>
+  <para>      &lt;marineCount&gt;1354&lt;/marineCount&gt;&#13;</para>
+  <para>    &lt;/chapter&gt;&#13;</para>
+  <para>  &lt;/marine&gt;&#13;</para>
+  <para>  &lt;marine&gt;&#13;</para>
+  <para>    &lt;id&gt;5&lt;/id&gt;&#13;</para>
+  <para>    &lt;name&gt;Beauty&lt;/name&gt;&#13;</para>
+  <para>    &lt;coordinates&gt;&#13;</para>
+  <para>      &lt;x&gt;0&lt;/x&gt;&#13;</para>
+  <para>      &lt;y&gt;0.0&lt;/y&gt;&#13;</para>
+  <para>    &lt;/coordinates&gt;&#13;</para>
+  <para>    &lt;creationDate&gt;2022-02-11 12:49:52.514 UTC&lt;/creationDate&gt;&#13;</para>
+  <para>    &lt;health&gt;18&lt;/health&gt;&#13;</para>
+  <para>    &lt;achievement&gt;Gold&lt;/achievement&gt;&#13;</para>
+  <para>    &lt;category&gt;BLUE&lt;/category&gt;&#13;</para>
+  <para>    &lt;weaponType&gt;CHAOTIC&lt;/weaponType&gt;&#13;</para>
+  <para>    &lt;chapter&gt;&#13;</para>
+  <para>      &lt;name&gt;Queen&lt;/name&gt;&#13;</para>
+  <para>      &lt;parentLegion&gt;Kingdom&lt;/parentLegion&gt;&#13;</para>
+  <para>      &lt;marineCount&gt;3&lt;/marineCount&gt;&#13;</para>
+  <para>    &lt;/chapter&gt;&#13;</para>
+  <para>  &lt;/marine&gt;&#13;</para>
+  <para>&lt;/set&gt;</para>
+</article>
