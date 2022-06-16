@@ -7,21 +7,21 @@ import Common.requestSystem.Response;
 
 public class AddIfMax extends CommandAbstract {
 
-    private final SpaceMarine dragon;
+    private final SpaceMarine spaceMarine;
 
-    public AddIfMax(SpaceMarine dragon) {
-        super("add_if_max", "Добавить дракона в коллекцию, если он старше всех существующих", SpaceMarine.COUNT_OF_PRIMITIVE_ARGS);
-        this.dragon = dragon;
+    public AddIfMax(SpaceMarine spaceMarine) {
+        super("add_if_max", "Добавить корабль в коллекцию, если его показатель здоровья выше всех существующих", SpaceMarine.COUNT_OF_PRIMITIVE_ARGS);
+        this.spaceMarine = spaceMarine;
     }
 
     @Override
     public Response execute(CollectionManager manager) {
-        int maxAge = manager.getMax().getAge();
-        if (dragon.getAge() > maxAge) {
-            manager.addDragon(dragon);
-            return new Response(TextFormatter.colorInfoMessage("Dragon successfully added"));
+        long maxHealth = manager.getMax().getHealth();
+        if (spaceMarine.getHealth() > maxHealth) {
+            manager.addSpaceMarines(spaceMarine);
+            return new Response(TextFormatter.colorInfoMessage("Корабль успешно добавлен"));
         } else {
-            return new Response(TextFormatter.colorInfoMessage("В коллекции есть дракон постарше!"));
+            return new Response(TextFormatter.colorInfoMessage("В коллекции есть корабль получше!"));
         }
     }
 }

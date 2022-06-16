@@ -7,21 +7,21 @@ import Common.requestSystem.Response;
 
 public class AddIfMin extends CommandAbstract {
 
-    private final SpaceMarine dragon;
+    private final SpaceMarine spaceMarine;
 
-    public AddIfMin(SpaceMarine dragon) {
-        super("add_if_min", "Добавить дракона в коллекцию, если его возраст меньше, чем у самого младшего в коллекции", SpaceMarine.COUNT_OF_PRIMITIVE_ARGS);
-        this.dragon = dragon;
+    public AddIfMin(SpaceMarine spaceMarine) {
+        super("add_if_min", "Добавить корабль в коллекцию, если его показатель здоровья меньше остальных", SpaceMarine.COUNT_OF_PRIMITIVE_ARGS);
+        this.spaceMarine = spaceMarine;
     }
 
     @Override
     public Response execute(CollectionManager manager) {
-        int minAge = manager.getMin().getAge();
-        if (dragon.getAge() < minAge) {
-            manager.addDragon(dragon);
-            return new Response(TextFormatter.colorInfoMessage("Dragon successfully added"));
+        long minHealth = manager.getMin().getHealth();
+        if (spaceMarine.getHealth() < minHealth) {
+            manager.addSpaceMarines(spaceMarine);
+            return new Response(TextFormatter.colorInfoMessage("Корабль успешно добавлен"));
         } else {
-            return new Response(TextFormatter.colorInfoMessage("В коллекции есть дракон помладше!"));
+            return new Response(TextFormatter.colorInfoMessage("В коллекции есть корабль похуже!"));
         }
     }
 }
