@@ -22,13 +22,13 @@ public class CollectionManager {
         if(sm.iterator().hasNext()) {
             sm.iterator().next().setId();
             spaceMarines.add(sm.iterator().next());
+            sm.iterator().remove();
         }
     }
 
     public void addSpaceMarine(SpaceMarine sm) {
             sm.setId();
             spaceMarines.add(sm);
-
     }
 
     public void clear() {

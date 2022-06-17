@@ -1,7 +1,5 @@
 package Server;
 
-//import com.thoughtworks.xstream.converters.ConversionException;
-//import com.thoughtworks.xstream.io.StreamException;
 import Common.commands.CommandAbstract;
 import Common.entities.SpaceMarine;
 import Common.handlers.HistorySaver;
@@ -100,25 +98,16 @@ public final class Server {
         }
     }
 
-    private static ServerSocketChannel initChannel(Selector selector) throws IOException {
-        ServerSocketChannel server = ServerSocketChannel.open();
-        ServerConfig.logger.info("Сокет открылся");
-        server.socket().bind(new InetSocketAddress("localhost",ServerConfig.SERVER_PORT));
-        server.configureBlocking(false);
-        server.register(selector, SelectionKey.OP_ACCEPT);
-        return server;
-    }
-
     private static void fillCollectionFromFile(File file) {
         GSONReader reader = new GSONReader();
         try {
             HashSet<SpaceMarine> spaceMarine = reader.read(file);
             while (spaceMarine.iterator().hasNext())
                 ServerConfig.manager.addSpaceMarine(spaceMarine.iterator().next());
+                spaceMarine.iterator().remove();
                 if (spaceMarine.iterator().next().getCreationDate() == null) {
                     spaceMarine.iterator().next().setCreationDate();
                 }
-
             ServerConfig.logger.info("Коллекция успешно заполнена");
         } catch (IOException e) {
             ServerConfig.logger.info("Файл не существует");
