@@ -11,7 +11,7 @@ public class ConsoleThread extends Thread {
 
     @Override
     public void run() {
-        ServerConfig.logger.info("Консоль запушена");
+        ServerConfig.logger.info("Консоль запущена");
         while (running) {
             String line = scanner.nextLine();
             if ("save".equalsIgnoreCase(line)) {

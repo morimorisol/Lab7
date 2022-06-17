@@ -17,7 +17,7 @@ import java.util.Scanner;
 /**
  * Класс, отвечающий за стартовую обработку xml-файла с данными о коллекции
  */
-public class XMLReader {
+public class GSONReader {
 
     public HashSet<SpaceMarine> readOLD(File file) throws IOException, NumberFormatException {
         XStream xStream = new XStream();
@@ -53,7 +53,7 @@ public class XMLReader {
         InputStreamReader fileReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
         BufferedReader fileBuffer = new BufferedReader(fileReader);
         String jsonCollection = String.valueOf(fileBuffer.readLine());
-        Type dataType = new TypeToken<LinkedList<SpaceMarine>>() {}.getType();
+        Type dataType = new TypeToken<HashSet<SpaceMarine>>() {}.getType();
         Gson gson = new Gson();
         CollectionManager manager = gson.fromJson(jsonCollection, dataType);
         return manager.getSpaceMarines();

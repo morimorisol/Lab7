@@ -8,7 +8,7 @@ import Common.handlers.HistorySaver;
 import Common.requestSystem.Response;
 import Common.requestSystem.Serializer;
 import Server.exceptions.DisconnectInitException;
-import Server.fileHandlers.XMLReader;
+import Server.fileHandlers.GSONReader;
 import Server.fileHandlers.XMLWriter;
 import com.thoughtworks.xstream.converters.ConversionException;
 import com.thoughtworks.xstream.io.StreamException;
@@ -109,7 +109,7 @@ public final class Server {
     }
 
     private static void fillCollectionFromFile(File file) {
-        XMLReader reader = new XMLReader();
+        GSONReader reader = new GSONReader();
         try {
             for (SpaceMarine spaceMarine : reader.read(file)) {
                 ServerConfig.manager.addSpaceMarines(spaceMarine);

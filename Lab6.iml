@@ -8,7 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="validation-api-2.0.1.Final" level="project" />
-    <orderEntry type="library" name="xstream-1.4.18" level="project" />
     <orderEntry type="library" name="gson-2.8.9" level="project" />
+    <orderEntry type="library" name="xstream-1.4.19" level="project" />
   </component>
 </module>
