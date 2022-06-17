@@ -1,14 +1,17 @@
 package Server.fileHandlers;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 import Common.entities.CollectionManager;
 import Common.entities.SpaceMarine;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -16,7 +19,7 @@ import java.util.Scanner;
  */
 public class XMLReader {
 
-    public HashSet<SpaceMarine> read(File file) throws IOException, NumberFormatException {
+    public HashSet<SpaceMarine> readOLD(File file) throws IOException, NumberFormatException {
         XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY);
         xStream.alias("space marine", SpaceMarine.class);
@@ -29,7 +32,7 @@ public class XMLReader {
             xmlText.append(sc.nextLine());
         }
         reader.close();
-        CollectionManager manager = (CollectionManager) xStream.fromXML(xmlText.toString());
+        CollectionManager manager = (CollectionManager) xStream.fromXML(String.valueOf(xmlText));
         if (!fileIsCorrect(manager)) {
             System.out.println("Ошибка чтения файла на уровне валидации");
             System.exit(0);
@@ -44,5 +47,15 @@ public class XMLReader {
             }
         }
         return true;
+    }
+
+    public HashSet<SpaceMarine> read(File file) throws IOException {
+        InputStreamReader fileReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
+        BufferedReader fileBuffer = new BufferedReader(fileReader);
+        String jsonCollection = String.valueOf(fileBuffer.readLine());
+        Type dataType = new TypeToken<LinkedList<SpaceMarine>>() {}.getType();
+        Gson gson = new Gson();
+        CollectionManager manager = gson.fromJson(jsonCollection, dataType);
+        return manager.getSpaceMarines();
     }
 }

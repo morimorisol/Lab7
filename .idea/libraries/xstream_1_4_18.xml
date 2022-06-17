@@ -4,6 +4,8 @@
       <root url="jar://$PROJECT_DIR$/xstream-1.4.18.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/xstream-1.4.18-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

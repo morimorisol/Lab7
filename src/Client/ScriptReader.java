@@ -14,7 +14,7 @@ public class ScriptReader {
 
     public ScriptReader(String commandLine) {
         if (scriptAlreadyRan(commandLine)) {
-            throw new IllegalArgumentException("This script already ran");
+            throw new IllegalArgumentException("Скрипт уже запущен");
         }
         this.filename = LineSplitter.smartSplit(commandLine).get(1);
         namesOfRanScripts.add(filename);

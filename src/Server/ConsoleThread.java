@@ -11,19 +11,19 @@ public class ConsoleThread extends Thread {
 
     @Override
     public void run() {
-        ServerConfig.logger.info("Console thread is running");
+        ServerConfig.logger.info("Консоль запушена");
         while (running) {
             String line = scanner.nextLine();
             if ("save".equalsIgnoreCase(line)) {
                 try {
                     XMLWriter.write(Server.file, ServerConfig.manager);
-                    ServerConfig.logger.info("Collection saved");
+                    ServerConfig.logger.info("Коллекция сохранена");
                 } catch (IOException e) {
-                    ServerConfig.logger.info("Something went wrong, can't save collection");
+                    ServerConfig.logger.info("Не удалось сохранить коллекцию");
                 }
             }
             if ("exit".equalsIgnoreCase(line)) {
-                ServerConfig.logger.info("Server closed");
+                ServerConfig.logger.info("Сервер закрыт");
                 System.exit(0);
             }
         }

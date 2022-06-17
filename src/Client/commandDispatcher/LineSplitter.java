@@ -11,12 +11,7 @@ public final class LineSplitter {
     private LineSplitter() {
         //not called
     }
-    /**
-     * Метод, разделяющий полученную строку по пробелам, учитывая при этом экранизацию
-     *
-     * @param line строка, которую необходимо разделить
-     * @return разделенный список строк
-     */
+
     public static List<String> smartSplit(String line) {
         List<String> splittedLine = new ArrayList<>();
         StringBuilder currentString = new StringBuilder();
