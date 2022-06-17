@@ -21,6 +21,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -111,12 +112,13 @@ public final class Server {
     private static void fillCollectionFromFile(File file) {
         GSONReader reader = new GSONReader();
         try {
-            for (SpaceMarine spaceMarine : reader.read(file)) {
-                ServerConfig.manager.addSpaceMarines(spaceMarine);
-                if (spaceMarine.getCreationDate() == null) {
-                    spaceMarine.setCreationDate();
+            HashSet<SpaceMarine> spaceMarine = reader.read(file);
+            while (spaceMarine.iterator().hasNext())
+                ServerConfig.manager.addSpaceMarine(spaceMarine.iterator().next());
+                if (spaceMarine.iterator().next().getCreationDate() == null) {
+                    spaceMarine.iterator().next().setCreationDate();
                 }
-            }
+
             ServerConfig.logger.info("Коллекция успешно заполнена");
         } catch (IOException e) {
             ServerConfig.logger.info("Файл не существует");

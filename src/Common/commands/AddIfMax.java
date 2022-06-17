@@ -18,7 +18,7 @@ public class AddIfMax extends CommandAbstract {
     public Response execute(CollectionManager manager) {
         long maxHealth = manager.getMax().getHealth();
         if (spaceMarine.getHealth() > maxHealth) {
-            manager.addSpaceMarines(spaceMarine);
+            manager.addSpaceMarine(spaceMarine);
             return new Response(TextFormatter.colorInfoMessage("Корабль успешно добавлен"));
         } else {
             return new Response(TextFormatter.colorInfoMessage("В коллекции есть корабль получше!"));

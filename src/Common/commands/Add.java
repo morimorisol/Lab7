@@ -16,7 +16,7 @@ public class Add extends CommandAbstract {
 
     @Override
     public Response execute(CollectionManager manager) {
-        manager.addSpaceMarines(sm);
+        manager.addSpaceMarine(sm);
         return new Response(TextFormatter.colorInfoMessage("Корабль успешно добавлен"));
     }
 

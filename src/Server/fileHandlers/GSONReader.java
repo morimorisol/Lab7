@@ -55,7 +55,10 @@ public class GSONReader {
         String jsonCollection = String.valueOf(fileBuffer.readLine());
         Type dataType = new TypeToken<HashSet<SpaceMarine>>() {}.getType();
         Gson gson = new Gson();
-        CollectionManager manager = gson.fromJson(jsonCollection, dataType);
+        HashSet<SpaceMarine> spaceMarines = new HashSet<>();
+        spaceMarines = gson.fromJson(jsonCollection, dataType);
+        CollectionManager manager = new CollectionManager();
+        manager.addSpaceMarines(spaceMarines);
         return manager.getSpaceMarines();
     }
 }

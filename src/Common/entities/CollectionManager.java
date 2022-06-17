@@ -18,9 +18,17 @@ public class CollectionManager {
         return spaceMarines;
     }
 
-    public void addSpaceMarines(SpaceMarine sm) {
-        sm.setId();
-        spaceMarines.add(sm);
+    public void addSpaceMarines(HashSet<SpaceMarine> sm) {
+        if(sm.iterator().hasNext()) {
+            sm.iterator().next().setId();
+            spaceMarines.add(sm.iterator().next());
+        }
+    }
+
+    public void addSpaceMarine(SpaceMarine sm) {
+            sm.setId();
+            spaceMarines.add(sm);
+
     }
 
     public void clear() {

@@ -26,7 +26,7 @@ public class UpdateById extends CommandAbstract {
             }
         }
         if (flag) {
-            manager.addSpaceMarines(spaceMarine);
+            manager.addSpaceMarine(spaceMarine);
             return new Response(TextFormatter.colorInfoMessage("Информация о кораблях успешно обновлена"));
         } else {
             return new Response(TextFormatter.colorInfoMessage("ID не найдено"));

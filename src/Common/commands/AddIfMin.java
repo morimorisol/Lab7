@@ -18,7 +18,7 @@ public class AddIfMin extends CommandAbstract {
     public Response execute(CollectionManager manager) {
         long minHealth = manager.getMin().getHealth();
         if (spaceMarine.getHealth() < minHealth) {
-            manager.addSpaceMarines(spaceMarine);
+            manager.addSpaceMarine(spaceMarine);
             return new Response(TextFormatter.colorInfoMessage("Корабль успешно добавлен"));
         } else {
             return new Response(TextFormatter.colorInfoMessage("В коллекции есть корабль похуже!"));
