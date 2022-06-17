@@ -25,7 +25,7 @@ public final class Client {
         throw new UnsupportedOperationException("This is an utility class and can not be instantiated");
     }
 
-    private static final int PORT = 45846;
+    private static final int PORT = 8080;
     private static final int SLEEP_TIME = 500;
     private static final Scanner SCANNER = new Scanner(System.in);
     private static Selector selector;

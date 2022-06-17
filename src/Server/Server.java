@@ -49,7 +49,9 @@ public final class Server {
         fillCollectionFromFile(file);
         try {
             selector = Selector.open();
-            ServerSocketChannel server = initChannel(selector);
+            ServerSocketChannel server = null;
+            server.configureBlocking(false);
+            server.register(selector, SelectionKey.OP_ACCEPT);
             startSelectorLoop(server);
         } catch (IOException e) {
             ServerConfig.logger.info("Некоторые проблемы с IO. Попробуйте снова");
@@ -73,15 +75,13 @@ public final class Server {
         while (iterator.hasNext()) {
             SelectionKey key = iterator.next();
             iterator.remove();
-
             if (key.isAcceptable()) {
                 SocketChannel socketChannel = channel.accept();
                 ServerConfig.logger.info("Сервер соединен с " + socketChannel.getLocalAddress());
-                socketChannel.configureBlocking(false);
                 socketChannel.register(selector, SelectionKey.OP_READ);
             } else if (key.isReadable()) {
                 SocketChannel socketChannel = (SocketChannel) key.channel();
-                ServerConfig.logger.info("Клиант " + socketChannel.getLocalAddress() + " отправил сообщение");
+                ServerConfig.logger.info("Клиент " + socketChannel.getLocalAddress() + " отправил сообщение");
                 CommandAbstract command = IOController.getCommand(socketChannel);
                 ServerConfig.logger.info("Сервер получил [" + command.getName() + "] команду");
                 HistorySaver.addCommandInHistory(command);
@@ -103,7 +103,7 @@ public final class Server {
     private static ServerSocketChannel initChannel(Selector selector) throws IOException {
         ServerSocketChannel server = ServerSocketChannel.open();
         ServerConfig.logger.info("Сокет открылся");
-        server.socket().bind(new InetSocketAddress(ServerConfig.SERVER_PORT));
+        server.socket().bind(new InetSocketAddress("localhost",ServerConfig.SERVER_PORT));
         server.configureBlocking(false);
         server.register(selector, SelectionKey.OP_ACCEPT);
         return server;
