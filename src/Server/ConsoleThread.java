@@ -1,6 +1,6 @@
 package Server;
 
-import Server.fileHandlers.XMLWriter;
+import Server.fileHandlers.GSONWriter;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -16,7 +16,7 @@ public class ConsoleThread extends Thread {
             String line = scanner.nextLine();
             if ("save".equalsIgnoreCase(line)) {
                 try {
-                    XMLWriter.write(Server.file, ServerConfig.manager);
+                    GSONWriter.write(Server.file, ServerConfig.manager);
                     ServerConfig.logger.info("Коллекция сохранена");
                 } catch (IOException e) {
                     ServerConfig.logger.info("Не удалось сохранить коллекцию");

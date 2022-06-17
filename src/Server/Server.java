@@ -9,7 +9,7 @@ import Common.requestSystem.Response;
 import Common.requestSystem.Serializer;
 import Server.exceptions.DisconnectInitException;
 import Server.fileHandlers.GSONReader;
-import Server.fileHandlers.XMLWriter;
+import Server.fileHandlers.GSONWriter;
 import com.thoughtworks.xstream.converters.ConversionException;
 import com.thoughtworks.xstream.io.StreamException;
 
@@ -91,7 +91,7 @@ public final class Server {
                     socketChannel.write(buffer);
                     ServerConfig.logger.info("Сервер написал ответ клиенту");
                 } catch (DisconnectInitException e) {
-                    XMLWriter.write(file, ServerConfig.manager);
+                    GSONWriter.write(file, ServerConfig.manager);
                     ServerConfig.logger.info("Клиент " + socketChannel.getLocalAddress() + " отсоединен. Коллекция успешно сохранена");
                     socketChannel.close();
                     break;

@@ -1,6 +1,7 @@
 package Server.fileHandlers;
 
 import Server.Server;
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import Common.entities.CollectionManager;
 import Common.entities.SpaceMarine;
@@ -14,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * Класс, отвечающий за сохранение текущей коллекции в xml-файл
  */
-public class XMLWriter {
+public class GSONWriter {
 
     /**
      * Метод, сохраняющий данные в формате xml, ИСПОЛЬЗУЕТСЯ СТОРОННЯЯ БИБЛИОТЕКА XStream
@@ -35,8 +36,9 @@ public class XMLWriter {
         writer.close();
     }
     public static void write(File file, CollectionManager spaceMarines) throws IOException {
-        FileWriter fileWriter = new FileWriter(Server.collectionPath, false);
-        fileWriter.write(gson.toJson(Server.spaceMarines));
+        FileWriter fileWriter = new FileWriter(file, false);
+        Gson gson = new Gson();
+        fileWriter.write(gson.toJson(CollectionManager.spaceMarines));
         fileWriter.flush();
         System.out.println("\nКоллекция успешно сохранена");
     }

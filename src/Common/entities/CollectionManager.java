@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class CollectionManager {
 
     private final Date creationDate;
-    private HashSet<SpaceMarine> spaceMarines;
+    public static HashSet<SpaceMarine> spaceMarines;
 
     public CollectionManager() {
         spaceMarines = new HashSet<>();
