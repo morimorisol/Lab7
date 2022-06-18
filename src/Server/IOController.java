@@ -4,7 +4,6 @@ import Common.commands.CommandAbstract;
 import Common.entities.CollectionManager;
 import Common.requestSystem.Response;
 import Common.requestSystem.Serializer;
-import Server.exceptions.DisconnectInitException;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -18,9 +17,9 @@ public class IOController {
         return Serializer.deserializeCommand(readBuffer.array());
     }
 
-    public static Response buildResponse(CommandAbstract command, CollectionManager manager) throws DisconnectInitException {
+    public static Response buildResponse(CommandAbstract command, CollectionManager manager) throws Exception {
         if (command.getName().equals("exit")) {
-            throw new DisconnectInitException("Client initialize disconnect");
+            throw new Exception("Client initialize disconnect");
         }
         return (Response) command.execute(manager);
     }

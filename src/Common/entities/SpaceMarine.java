@@ -4,6 +4,7 @@ import Common.enums.AstartesCategory;
 import Common.enums.WeaponType;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
@@ -23,7 +24,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
     public int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     public String name; //Поле не может быть null, Строка не может быть пустой
     public Coordinates coordinates;//Поле не может быть null
-    public static Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    public static LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     public long health; //Поле не может быть null, Значение поля должно быть больше 0
     public String achievements; //Поле не может быть null
     public AstartesCategory category; //Поле может быть null
@@ -55,7 +56,6 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         }
         this.coordinates = coordinates;
     }
-
 
     public Coordinates getCoordinates() {
         return this.coordinates;
@@ -113,12 +113,11 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         return this.chapter;
     }
 
-
     public void setCreationDate() {
-        this.creationDate = new Date();
+        this.creationDate = LocalDate.now();
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
@@ -156,7 +155,6 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
             return false;
         }
         SpaceMarine spaceMarine = (SpaceMarine) obj;
-
         return getName().equals(spaceMarine.getName())
                 && health == spaceMarine.health
                 && coordinates.equals(spaceMarine.coordinates)

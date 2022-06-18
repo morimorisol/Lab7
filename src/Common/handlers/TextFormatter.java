@@ -6,13 +6,11 @@ public final class TextFormatter {
 
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_GREEN = "\u001B[36m";
     private static final String ANSI_BLUE = "\u001B[34m";
     private static PrintStream printStream = System.out;
 
-    private TextFormatter() {
-
-    }
+    private TextFormatter() {}
 
     public static void changePrintStream(PrintStream stream) {
         printStream = stream;

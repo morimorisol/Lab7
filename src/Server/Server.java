@@ -1,11 +1,9 @@
 package Server;
 
 import Common.commands.CommandAbstract;
-import Common.entities.SpaceMarine;
 import Common.handlers.HistorySaver;
 import Common.requestSystem.Response;
 import Common.requestSystem.Serializer;
-import Server.exceptions.DisconnectInitException;
 import Server.fileHandlers.GSONReader;
 import Server.fileHandlers.GSONWriter;
 import com.thoughtworks.xstream.converters.ConversionException;
@@ -19,7 +17,6 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -33,23 +30,21 @@ public final class Server {
         throw new UnsupportedOperationException("Не может быть создан экземпляр класса");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         ConsoleThread consoleThread = new ConsoleThread();
         consoleThread.start();
         startServer(args);
         consoleThread.shutdown();
     }
 
-    private static void startServer(String[] args) {
-        ServerConfig.logger.info("Сервер запущен");
+    private static void startServer(String[] args) throws IOException {
+        ServerConfig.logger.info("Сервер готов к работе");
         String collectionPath = System.getenv("labCollection");
         file = new File(collectionPath);
         fillCollectionFromFile(file);
         try {
             selector = Selector.open();
-            ServerSocketChannel server = null;
-            server.configureBlocking(false);
-            server.register(selector, SelectionKey.OP_ACCEPT);
+            ServerSocketChannel server = initChannel(selector);
             startSelectorLoop(server);
         } catch (IOException e) {
             ServerConfig.logger.info("Некоторые проблемы с IO. Попробуйте снова");
@@ -58,6 +53,15 @@ public final class Server {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private static ServerSocketChannel initChannel(Selector selector) throws IOException {
+        ServerSocketChannel server = ServerSocketChannel.open();
+        ServerConfig.logger.info("Сокет готов к работе");
+        server.socket().bind(new InetSocketAddress(ServerConfig.SERVER_PORT));
+        server.configureBlocking(false);
+        server.register(selector, SelectionKey.OP_ACCEPT);
+        return server;
     }
 
     private static void startSelectorLoop(ServerSocketChannel channel) throws IOException, ClassNotFoundException, InterruptedException {
@@ -76,6 +80,7 @@ public final class Server {
             if (key.isAcceptable()) {
                 SocketChannel socketChannel = channel.accept();
                 ServerConfig.logger.info("Сервер соединен с " + socketChannel.getLocalAddress());
+                socketChannel.configureBlocking(false);
                 socketChannel.register(selector, SelectionKey.OP_READ);
             } else if (key.isReadable()) {
                 SocketChannel socketChannel = (SocketChannel) key.channel();
@@ -88,7 +93,7 @@ public final class Server {
                     ByteBuffer buffer = Serializer.serializeResponse(response);
                     socketChannel.write(buffer);
                     ServerConfig.logger.info("Сервер написал ответ клиенту");
-                } catch (DisconnectInitException e) {
+                } catch (Exception e) {
                     GSONWriter.write(file, ServerConfig.manager);
                     ServerConfig.logger.info("Клиент " + socketChannel.getLocalAddress() + " отсоединен. Коллекция успешно сохранена");
                     socketChannel.close();
@@ -101,13 +106,7 @@ public final class Server {
     private static void fillCollectionFromFile(File file) {
         GSONReader reader = new GSONReader();
         try {
-            HashSet<SpaceMarine> spaceMarine = reader.read(file);
-            while (spaceMarine.iterator().hasNext())
-                ServerConfig.manager.addSpaceMarine(spaceMarine.iterator().next());
-                spaceMarine.iterator().remove();
-                if (spaceMarine.iterator().next().getCreationDate() == null) {
-                    spaceMarine.iterator().next().setCreationDate();
-                }
+            reader.read(file);
             ServerConfig.logger.info("Коллекция успешно заполнена");
         } catch (IOException e) {
             ServerConfig.logger.info("Файл не существует");

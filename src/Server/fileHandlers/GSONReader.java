@@ -11,7 +11,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -37,7 +37,7 @@ public class GSONReader {
             System.out.println("Ошибка чтения файла на уровне валидации");
             System.exit(0);
         }
-        return manager.getSpaceMarines();
+        return null;//manager.getSpaceMarines();
     }
 
     private boolean fileIsCorrect(CollectionManager manager) {
@@ -49,16 +49,22 @@ public class GSONReader {
         return true;
     }
 
-    public HashSet<SpaceMarine> read(File file) throws IOException {
+    public void read(File file) throws IOException {
         InputStreamReader fileReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
         BufferedReader fileBuffer = new BufferedReader(fileReader);
         String jsonCollection = String.valueOf(fileBuffer.readLine());
-        Type dataType = new TypeToken<HashSet<SpaceMarine>>() {}.getType();
+        Type dataType = new TypeToken<HashSet<SpaceMarine>>() {
+        }.getType();
         Gson gson = new Gson();
-        HashSet<SpaceMarine> spaceMarines = new HashSet<>();
-        spaceMarines = gson.fromJson(jsonCollection, dataType);
-        CollectionManager manager = new CollectionManager();
-        manager.addSpaceMarines(spaceMarines);
-        return manager.getSpaceMarines();
+        HashSet<SpaceMarine> spaceMarines = gson.fromJson(jsonCollection, dataType);
+        //  CollectionManager manager = new CollectionManager();
+        Iterator<SpaceMarine> iterator = spaceMarines.iterator();
+        while (iterator.hasNext()) {
+            SpaceMarine i = iterator.next();
+            i.setId();
+            if (i.getCreationDate() == null) i.setCreationDate();
+            CollectionManager.spaceMarines.add(i);
+        }
     }
 }
+

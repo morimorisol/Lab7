@@ -13,6 +13,6 @@ public class ServerConfig {
     protected static final CollectionManager manager = new CollectionManager();
     protected static final Logger logger = LogManager.getLogManager().getLogger("");
     protected static final File starting = new File(System.getProperty("user.dir")); // Get current user directory
-    protected static final int SERVER_PORT = 8080;
+    protected static final int SERVER_PORT = 8100;
     protected static final Scanner scanner = new Scanner(System.in);
 }

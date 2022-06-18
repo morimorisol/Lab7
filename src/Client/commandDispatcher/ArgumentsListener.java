@@ -5,7 +5,6 @@ import Common.entities.Chapter;
 import Common.entities.SpaceMarine;
 import Common.enums.AstartesCategory;
 import Common.enums.WeaponType;
-import Common.handlers.MarineValidator;
 import Common.handlers.TextFormatter;
 
 
@@ -27,12 +26,6 @@ public class ArgumentsListener {
             spaceMarine.setName(name);
             spaceMarine.setHealth(health);
             spaceMarine.setAchievements(achievements);
-            boolean correctName = MarineValidator.validateField(spaceMarine, "name");
-            boolean correctHealth = MarineValidator.validateField(spaceMarine, "health");
-            boolean correctAchievements = MarineValidator.validateField(spaceMarine, "achievements");
-            if (!correctName | !correctHealth | !correctAchievements) {
-                return null;
-            }
         } catch (NumberFormatException e) {
             TextFormatter.printErrorMessage("Аргументы имеют неверный формат");
             return null;
@@ -63,13 +56,6 @@ public class ArgumentsListener {
                 spaceMarine.setName(inputArray[0]);
                 spaceMarine.setHealth(Long.parseLong(inputArray[1]));
                 spaceMarine.setAchievements(inputArray[2]);
-                boolean correctName = MarineValidator.validateField(spaceMarine, "name");
-                boolean correctHealth = MarineValidator.validateField(spaceMarine, "health");
-                boolean correctAchievements = MarineValidator.validateField(spaceMarine, "achievements");
-                if (!correctName | !correctHealth | !correctAchievements) {
-                    TextFormatter.printErrorMessage("Введенные данные некорректны");
-                    inputPrimitives(spaceMarine);
-                }
             } catch (IllegalArgumentException e) {
                 TextFormatter.printErrorMessage("Введены некорректные данные, верный формат: имя здоровье[>0] достижения[>0]");
                 inputPrimitives(spaceMarine);
@@ -95,11 +81,6 @@ public class ArgumentsListener {
         try {
             int x = Integer.parseInt(scanner.nextLine());
             coordinates.setX(x);
-            boolean correctField = MarineValidator.validateField(coordinates, "x");
-            if (!correctField) {
-                TextFormatter.printErrorMessage("Значение поля некорректно, попробуйте еще раз");
-                inputX(coordinates);
-            }
         } catch (NumberFormatException e) {
             TextFormatter.printErrorMessage("Число имеет неверный формат");
             inputX(coordinates);
@@ -115,10 +96,6 @@ public class ArgumentsListener {
         try {
             float y = Float.parseFloat(scanner.nextLine());
             coordinates.setY(y);
-            boolean correctField = MarineValidator.validateField(coordinates, "y");
-            if (!correctField) {
-                inputY(coordinates);
-            }
         } catch (NumberFormatException e) {
             TextFormatter.printErrorMessage("Ошибка ввода");
             inputY(coordinates);
@@ -138,9 +115,9 @@ public class ArgumentsListener {
     }
 
     private void inputParentLegion(Chapter chapter) {
-        TextFormatter.printInfoMessage("Введите глубину пещеры (число с плавающей точкой): ");
+        TextFormatter.printInfoMessage("Введите имя родительского легиона: ");
         try {
-            chapter.setMarinesCount(Long.parseLong(scanner.nextLine()));
+            chapter.setParentLegion(scanner.nextLine());
         } catch (NumberFormatException e) {
             TextFormatter.printErrorMessage("Ошибка ввода");
             inputParentLegion(chapter);
@@ -161,7 +138,7 @@ public class ArgumentsListener {
     }
 
     private void inputMarinesCount(Chapter chapter) {
-        TextFormatter.printInfoMessage("Введите количество сокровищ (целое число, большее 0): ");
+        TextFormatter.printInfoMessage("Введите кораблей в части: ");
         try {
             chapter.setMarinesCount(Integer.parseInt(scanner.nextLine()));
         } catch (NumberFormatException e) {
@@ -172,12 +149,12 @@ public class ArgumentsListener {
 
 
     public void inputAstartesCategory(SpaceMarine spaceMarine) {
-        TextFormatter.printInfoMessage("Введите тип оружия, доступные типы: " + Arrays.toString(WeaponType.values()) + ": ");
+        TextFormatter.printInfoMessage("Введите категорию, доступные типы: " + Arrays.toString(AstartesCategory.values()) + ": ");
         try {
-            spaceMarine.setWeaponType(WeaponType.valueOf(scanner.nextLine().toUpperCase()));
+            spaceMarine.setAstartesCategory(AstartesCategory.valueOf(scanner.nextLine().toUpperCase()));
         } catch (IllegalArgumentException e) {
             TextFormatter.printErrorMessage("Ошибка ввода, такого типа оружия не существует");
-            inputWeaponType(spaceMarine);
+            inputAstartesCategory(spaceMarine);
         }
     }
 

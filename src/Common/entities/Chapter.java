@@ -15,7 +15,7 @@ public class Chapter implements Serializable, Comparable<Chapter> {
         if (marinesCount >= Long.parseLong("1000")) {
             throw new IllegalArgumentException("Значение слишком большое, попробуйте снова");
         }
-        if (marinesCount <= Long.parseLong("1000")) {
+        if (marinesCount < Long.parseLong("0")) {
             throw new IllegalArgumentException("Значение слишком маленькое, попробуйте снова");
         }
         this.marinesCount = marinesCount;

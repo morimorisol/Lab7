@@ -1,32 +1,40 @@
 package Common.entities;
 
 import Common.handlers.TextFormatter;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class CollectionManager {
 
-    private final Date creationDate;
-    public static HashSet<SpaceMarine> spaceMarines;
+    private final LocalDate creationDate;
+    public static LinkedList<SpaceMarine> spaceMarines;
 
     public CollectionManager() {
-        spaceMarines = new HashSet<>();
-        creationDate = new Date();
+        spaceMarines = new LinkedList<>();
+        creationDate = LocalDate.now();
     }
 
-    public HashSet<SpaceMarine> getSpaceMarines() {
+    public LinkedList<SpaceMarine> getSpaceMarines() {
         return spaceMarines;
     }
 
-    public void addSpaceMarines(HashSet<SpaceMarine> sm) {
-        if(sm.iterator().hasNext()) {
-            sm.iterator().next().setId();
-            spaceMarines.add(sm.iterator().next());
+    public void addSpaceMarines(LinkedList<SpaceMarine> sm) {
+        Iterator<SpaceMarine> iterator = sm.iterator();
+        if(iterator.hasNext()) {
+            SpaceMarine marine = iterator.next();
+            marine.setId();
+            if (marine.getCreationDate()==null) marine.setCreationDate();
+            spaceMarines.add(marine);
+            iterator.remove();
         }
     }
 
     public void addSpaceMarine(SpaceMarine sm) {
             sm.setId();
+            if(sm.getCreationDate()==null) sm.setCreationDate();
             spaceMarines.add(sm);
     }
 
@@ -44,7 +52,8 @@ public class CollectionManager {
             SpaceMarine spaceMarine = getById(id);
             if (spaceMarine != null) {
                 spaceMarines.remove(spaceMarine);
-                return TextFormatter.colorInfoMessage("Корабль успешно заменен");
+                System.out.println(spaceMarines.toString());
+                return TextFormatter.colorInfoMessage("Корабль успешно удален");
             } else {
                 return TextFormatter.colorErrorMessage("Корабль с данным ID не найден");
             }
@@ -54,8 +63,7 @@ public class CollectionManager {
     }
 
     public SpaceMarine getById(int id) {
-        return null;
-                //spaceMarines.stream().filter(sm -> sm.getId().equals(id)).findAny().orElse(null);
+        return spaceMarines.stream().filter(sm -> sm.getId() == id).findAny().orElse(null);
     }
 
     public String showInfo() {
