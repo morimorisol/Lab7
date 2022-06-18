@@ -21,7 +21,6 @@ public class Chapter implements Serializable, Comparable<Chapter> {
         this.marinesCount = marinesCount;
     }
 
-
     public void setName(String name) {
         if (name == null | name.isEmpty()) {
             throw new IllegalArgumentException("Некорректное имя части, попробуйте снова");
@@ -39,8 +38,6 @@ public class Chapter implements Serializable, Comparable<Chapter> {
     public long getMarinesCount() {
         return marinesCount;
     }
-
-
     public String getName() {
         return name;
     }

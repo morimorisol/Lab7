@@ -24,13 +24,12 @@ public final class Client {
     }
 
     private static final int PORT = 8100;
-    private static final int SLEEP_TIME = 500;
     private static final Scanner SCANNER = new Scanner(System.in);
     private static Selector selector;
 
     public static void main(String[] args) {
         TextFormatter.printMessage("Enter hostname: ");
-        String hostname = "localhost";//SCANNER.nextLine();
+        String hostname = SCANNER.nextLine();
         InetSocketAddress hostAddress = new InetSocketAddress(hostname, PORT);
 
         try {

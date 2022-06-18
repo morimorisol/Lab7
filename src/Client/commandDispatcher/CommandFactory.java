@@ -67,7 +67,7 @@ public class CommandFactory {
                         return null;
                     }
                     return new Info();
-                case "max_by_cave":
+                case "max_by_chapter":
                     if (args.size() != 0) {
                         return null;
                     }
