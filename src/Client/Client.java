@@ -16,9 +16,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.*;
 
-/**
- @author Dmitry Busygin
- */
+
 public final class Client {
 
     private Client() {
