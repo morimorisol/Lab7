@@ -2,9 +2,6 @@ package Common.enums;
 
 import java.io.Serializable;
 
-/**
- * Перечисление доступных настроений драконов
- */
 public enum WeaponType implements Serializable{
     HEAVY_BOLTGUN,
     BOLT_RIFLE,

@@ -7,14 +7,9 @@ import Common.enums.AstartesCategory;
 import Common.enums.WeaponType;
 import Common.handlers.TextFormatter;
 
-
 import java.util.Arrays;
 import java.util.Scanner;
 
-/**
- * Класс, отвечающий за работу с пользователем во время
- * ввода данных о новом элементе коллекции
- */
 public class ArgumentsListener {
 
     private final Scanner scanner = new Scanner(System.in);
@@ -56,6 +51,7 @@ public class ArgumentsListener {
                 spaceMarine.setName(inputArray[0]);
                 spaceMarine.setHealth(Long.parseLong(inputArray[1]));
                 spaceMarine.setAchievements(inputArray[2]);
+                spaceMarine.setCreationDate();
             } catch (IllegalArgumentException e) {
                 TextFormatter.printErrorMessage("Введены некорректные данные, верный формат: имя здоровье[>0] достижения[>0]");
                 inputPrimitives(spaceMarine);

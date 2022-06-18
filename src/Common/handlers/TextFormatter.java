@@ -12,10 +12,6 @@ public final class TextFormatter {
 
     private TextFormatter() {}
 
-    public static void changePrintStream(PrintStream stream) {
-        printStream = stream;
-    }
-
     public static void printMessage(String message) {
         printStream.println(ANSI_BLUE + message + ANSI_RESET);
     }

@@ -8,9 +8,7 @@ import java.util.List;
 public final class HistorySaver {
     private static List<String> commandsHistory = new ArrayList<>();
 
-    private HistorySaver() {
-        //never used
-    }
+    private HistorySaver() {}
 
     public static List<String> getCommandsHistory() {
         return commandsHistory;

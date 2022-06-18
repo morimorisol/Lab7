@@ -18,7 +18,7 @@ public class ScriptReader {
         }
         this.filename = LineSplitter.smartSplit(commandLine).get(1);
         namesOfRanScripts.add(filename);
-        path = new File(new File(System.getProperty("user.dir")), filename);//Path.of(filename).toAbsolutePath();
+        path = new File(new File(""), filename);
     }
 
     private boolean scriptAlreadyRan(String commandLine) {

@@ -3,8 +3,6 @@ package Common.entities;
 import Common.handlers.TextFormatter;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class CollectionManager {
@@ -19,17 +17,6 @@ public class CollectionManager {
 
     public LinkedList<SpaceMarine> getSpaceMarines() {
         return spaceMarines;
-    }
-
-    public void addSpaceMarines(LinkedList<SpaceMarine> sm) {
-        Iterator<SpaceMarine> iterator = sm.iterator();
-        if(iterator.hasNext()) {
-            SpaceMarine marine = iterator.next();
-            marine.setId();
-            if (marine.getCreationDate()==null) marine.setCreationDate();
-            spaceMarines.add(marine);
-            iterator.remove();
-        }
     }
 
     public void addSpaceMarine(SpaceMarine sm) {

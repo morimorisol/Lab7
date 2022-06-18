@@ -6,8 +6,6 @@ import Common.requestSystem.Response;
 import Common.requestSystem.Serializer;
 import Server.fileHandlers.GSONReader;
 import Server.fileHandlers.GSONWriter;
-import com.thoughtworks.xstream.converters.ConversionException;
-import com.thoughtworks.xstream.io.StreamException;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,14 +28,14 @@ public final class Server {
         throw new UnsupportedOperationException("Не может быть создан экземпляр класса");
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+    public static void main(String[] args){
         ConsoleThread consoleThread = new ConsoleThread();
         consoleThread.start();
-        startServer(args);
+        startServer();
         consoleThread.shutdown();
     }
 
-    private static void startServer(String[] args) throws IOException {
+    private static void startServer() {
         ServerConfig.logger.info("Сервер готов к работе");
         String collectionPath = System.getenv("labCollection");
         file = new File(collectionPath);
@@ -94,7 +92,7 @@ public final class Server {
                     socketChannel.write(buffer);
                     ServerConfig.logger.info("Сервер написал ответ клиенту");
                 } catch (Exception e) {
-                    GSONWriter.write(file, ServerConfig.manager);
+                    GSONWriter.write(file);
                     ServerConfig.logger.info("Клиент " + socketChannel.getLocalAddress() + " отсоединен. Коллекция успешно сохранена");
                     socketChannel.close();
                     break;
@@ -111,10 +109,7 @@ public final class Server {
         } catch (IOException e) {
             ServerConfig.logger.info("Файл не существует");
             System.exit(0);
-        } catch (StreamException e) {
-            ServerConfig.logger.info("Файл пустой");
-            System.exit(0);
-        } catch (NullPointerException | ConversionException e) {
+        } catch (NullPointerException e) {
             ServerConfig.logger.info("Данные некорректны");
             System.exit(0);
         }
