@@ -1,9 +1,7 @@
 package Server;
 
 import Common.commands.CommandAbstract;
-import Common.handlers.HistorySaver;
 import Common.requestSystem.Response;
-import Common.requestSystem.Serializer;
 import Server.databaseHandlers.DatabaseConnector;
 import Server.fileHandlers.GSONReader;
 import Server.fileHandlers.GSONWriter;
@@ -28,11 +26,11 @@ public final class ServerManager {
     private static Selector selector;
     static File file;
 
-    private ServerManager() {
+    protected ServerManager() {
         throw new UnsupportedOperationException("Не может быть создан экземпляр класса");
     }
 
-    public static void main(String[] args){
+    public static void start(){
         ConsoleThread consoleThread = new ConsoleThread();
         consoleThread.start();
         startServer();

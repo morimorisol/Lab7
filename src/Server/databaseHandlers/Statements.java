@@ -1,7 +1,7 @@
 package Server.databaseHandlers;
 
 public enum Statements {
-    addDragon("INSERT INTO s335103Dragons " +
+    addSpaceMarine("INSERT INTO s335103Dragons " +
             "(id, name, creationDate, age, wingspan, xCoord, yCoord, color, caveDepth," +
             "caveNumOfTreasures, dragonCharacter, author) " +
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),

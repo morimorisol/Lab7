@@ -1,9 +1,8 @@
 package Server.databaseHandlers;
 
+import Common.entities.SpaceMarine;
+import Server.ServerConfig;
 import javafx.util.Pair;
-import lab7.common.util.entities.Dragon;
-import lab7.server.ServerConfig;
-
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -16,26 +15,27 @@ public class DatabaseWorker {
         this.userData = userData;
     }
 
-    public synchronized boolean addDragon(Dragon dragon) {
+    public synchronized boolean addSpaceMarine(SpaceMarine SpaceMarine) {
         try {
-            PreparedStatement statement = connection.prepareStatement(Statements.addDragon.getStatement());
-            dragon.setId(generateId());
-            statement.setLong(1, dragon.getId());
-            statement.setString(2, dragon.getName());
+            PreparedStatement statement = connection.prepareStatement(Statements.addSpaceMarine.getStatement());
+            SpaceMarine.setId((Integer) generateId());
+            statement.setLong(1, SpaceMarine.getId());
+            statement.setString(2, SpaceMarine.getName());
             statement.setDate(3, Date.valueOf(LocalDate.now()));
-            statement.setInt(4, dragon.getAge());
-            statement.setInt(5, dragon.getWingspan());
-            statement.setInt(6, dragon.getCoordinates().getX());
-            statement.setFloat(7, dragon.getCoordinates().getY());
-            if (dragon.getColor() == null) {
+            statement.setLong(4, SpaceMarine.getHealth());
+            statement.setString(5, SpaceMarine.getAchivements());
+            statement.setInt(6, SpaceMarine.getCoordinates().getX());
+            statement.setFloat(7, SpaceMarine.getCoordinates().getY());
+            if (SpaceMarine.getAchivements() == null) {
                 statement.setString(8,null);
             } else {
-                statement.setString(8, String.valueOf(dragon.getColor()));
+                statement.setString(8, String.valueOf(SpaceMarine.getAchivements()));
             }
-            statement.setDouble(9, dragon.getCave().getDepth());
-            statement.setInt(10, dragon.getCave().getNumberOfTreasures());
-            statement.setString(11, String.valueOf(dragon.getCharacter()));
-            statement.setString(12, userData.getKey());
+            statement.setString(9, String.valueOf(SpaceMarine.getWeaponType()));
+            statement.setString(10, SpaceMarine.getChapter().getName());
+            statement.setString(11, SpaceMarine.getChapter().getParentLegion());
+            statement.setLong(12, SpaceMarine.getChapter().getMarinesCount());
+            statement.setString(13, userData.getKey());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -52,30 +52,34 @@ public class DatabaseWorker {
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next();
         } catch (SQLException e) {
-            ServerConfig.LOGGER.info("SQL problem with removing by id");
+            ServerConfig.logger.info("SQL problem with removing by id");
             return false;
         }
     }
 
-    public synchronized boolean updateById(Dragon dragon, long id) {
+    public synchronized boolean updateById(SpaceMarine SpaceMarine, long id) {
         try {
             PreparedStatement statement = connection.prepareStatement(Statements.updateById.getStatement());
-            statement.setString(1, dragon.getName());
+            statement.setString(1, SpaceMarine.getName());
             statement.setDate(2, Date.valueOf(LocalDate.now()));
-            statement.setInt(3, dragon.getAge());
-            statement.setInt(4, dragon.getWingspan());
-            statement.setInt(5, dragon.getCoordinates().getX());
-            statement.setFloat(6, dragon.getCoordinates().getY());
-            statement.setString(7, dragon.getColor() == null ? null : String.valueOf(dragon.getColor()));
-            statement.setDouble(8, dragon.getCave().getDepth());
-            statement.setInt(9, dragon.getCave().getNumberOfTreasures());
-            statement.setString(10, String.valueOf(dragon.getCharacter()));
-            statement.setLong(11, id);
+            statement.setLong(3, SpaceMarine.getHealth());
+            statement.setString(4, SpaceMarine.getAchivements());
+            statement.setInt(5, SpaceMarine.getCoordinates().getX());
+            statement.setFloat(6, SpaceMarine.getCoordinates().getY());
+            if (SpaceMarine.getAchivements() == null) {
+                statement.setString(7,null);
+            } else {
+                statement.setString(7, String.valueOf(SpaceMarine.getAchivements()));
+            }
+            statement.setString(8, String.valueOf(SpaceMarine.getWeaponType()));
+            statement.setString(9, SpaceMarine.getChapter().getName());
+            statement.setString(10, SpaceMarine.getChapter().getParentLegion());
+            statement.setLong(11, SpaceMarine.getChapter().getMarinesCount());
             statement.setString(12, userData.getKey());
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next();
         } catch (SQLException e) {
-            ServerConfig.LOGGER.info("SQL problem with removing by id");
+            ServerConfig.logger.info("SQL problem with removing by id");
             e.printStackTrace();
             return false;
         }
@@ -88,22 +92,22 @@ public class DatabaseWorker {
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next();
         } catch (SQLException e) {
-            ServerConfig.LOGGER.info("SQL problem with removing by id");
+            ServerConfig.logger.info("SQL problem with removing by id");
             e.printStackTrace();
             return false;
         }
     }
 
-    private synchronized Long generateId() {
+    private synchronized Comparable<Integer> generateId() {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(Statements.getNextId.getStatement());
             if (resultSet.next()) {
-                return resultSet.getLong("nextval");
+                return resultSet.getInt("nextval");
             }
             return null;
         } catch (SQLException e) {
-            ServerConfig.LOGGER.info("SQL problem with generating id");
+            ServerConfig.logger.info("SQL problem with generating id");
             return null;
         }
     }

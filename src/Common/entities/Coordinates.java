@@ -11,6 +11,8 @@ public class Coordinates implements Serializable {
         this.y = y;
     }
 
+    public Coordinates() {}
+
     @NotNull
     private int x;
 

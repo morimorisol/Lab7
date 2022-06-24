@@ -1,7 +1,6 @@
 package Client.dataController;
 
 import Common.requestSystem.Response;
-import Common.requestSystem.Serializer;
 
 
 import java.io.IOException;

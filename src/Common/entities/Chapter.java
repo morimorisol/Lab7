@@ -16,6 +16,8 @@ public class Chapter implements Serializable, Comparable<Chapter> {
         this.marinesCount = marinesCount;
     }
 
+    public Chapter(){}
+
     public void setMarinesCount(long marinesCount) {
         if (marinesCount >= Long.parseLong("1000")) {
             throw new IllegalArgumentException("Значение слишком большое, попробуйте снова");

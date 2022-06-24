@@ -1,7 +1,6 @@
 package Server.databaseHandlers;
 
-import lab7.server.ServerConfig;
-
+import Server.ServerConfig;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +15,7 @@ public class PasswordEncryptor {
             md = MessageDigest.getInstance("MD2");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            ServerConfig.LOGGER.error("Cant encrypt password");
+            ServerConfig.logger.info("Cant encrypt password");
         }
         byte[] messageDigest = md.digest(s.getBytes());
         BigInteger no = new BigInteger(1, messageDigest);

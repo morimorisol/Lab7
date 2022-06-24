@@ -1,7 +1,5 @@
 package Server;
 
-import Common.entities.CollectionManager;
-
 import java.util.Scanner;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;

@@ -1,6 +1,6 @@
 package Client;
 
-import Client.commandDispatcher.LineSplitter;
+import lab7.client.commandDispatcher.LineSplitter;
 
 import java.io.File;
 import java.util.HashSet;
@@ -14,11 +14,11 @@ public class ScriptReader {
 
     public ScriptReader(String commandLine) {
         if (scriptAlreadyRan(commandLine)) {
-            throw new IllegalArgumentException("Скрипт уже запущен");
+            throw new IllegalArgumentException("This script already ran");
         }
         this.filename = LineSplitter.smartSplit(commandLine).get(1);
         namesOfRanScripts.add(filename);
-        path = new File(new File(""), filename);
+        path = new File(new File(System.getProperty("user.dir")), filename);//Path.of(filename).toAbsolutePath();
     }
 
     private boolean scriptAlreadyRan(String commandLine) {

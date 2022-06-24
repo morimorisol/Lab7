@@ -1,6 +1,7 @@
 package Server.databaseHandlers;
 
-import lab7.server.ServerConfig;
+
+import Server.ServerConfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +23,7 @@ public class DatabaseConnector {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            ServerConfig.LOGGER.error("DB driver not found!");
+            ServerConfig.logger.info("DB driver not found!");
             return null;
         }
         return DriverManager.getConnection(url, username, password);

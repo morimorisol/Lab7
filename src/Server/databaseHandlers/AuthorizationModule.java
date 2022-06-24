@@ -1,8 +1,8 @@
 package Server.databaseHandlers;
 
-import lab7.common.util.requestSystem.requests.Request;
-import lab7.common.util.requestSystem.requests.SignInRequest;
-import lab7.common.util.requestSystem.requests.SignUpRequest;
+import Common.requestSystem.requests.Request;
+import Common.requestSystem.requests.SignInRequest;
+import Common.requestSystem.requests.SignUpRequest;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
