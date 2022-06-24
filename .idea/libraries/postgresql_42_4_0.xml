@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="xstream-1.4.19">
+  <library name="postgresql-42.4.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/xstream-1.4.19.jar!/" />
+      <root url="jar://$PROJECT_DIR$/postgresql-42.4.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

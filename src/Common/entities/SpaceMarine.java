@@ -6,6 +6,7 @@ import Common.enums.WeaponType;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Objects;
 
 public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
@@ -18,22 +19,36 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
     /**
      * Счетчик id элементов, служит для обеспечения уникальности поля id у каждого элемента
      */
-    private static long idCounter = 1;
+    private static int idCounter = 1;
 
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates;//Поле не может быть null
-    private LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private long health; //Поле не может быть null, Значение поля должно быть больше 0
     private String achievements; //Поле не может быть null
     private AstartesCategory category; //Поле может быть null
     private WeaponType weaponType; //Поле не может быть null
     private Chapter chapter; //Поле не может быть null
+    private String authorName;
 
-    public SpaceMarine(){ this.creationDate = LocalDate.now();}
+    public SpaceMarine(){ this.creationDate = new Date();}
 
-    public void setId() {
-        this.id = (int) idCounter++;
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public void setId(int id) {
+        if (id > 0) {
+            this.id = id;
+            idCounter++;
+        } else {
+            this.id = idCounter++;
+        }
     }
 
     public int getId() {
@@ -114,11 +129,15 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         return this.chapter;
     }
 
-    public void setCreationDate() {
-        this.creationDate = LocalDate.now();
+    public void setCreationDate(Date date) {
+        if (date != null) {
+            this.creationDate = date;
+        } else {
+            this.creationDate = new Date();
+        }
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 

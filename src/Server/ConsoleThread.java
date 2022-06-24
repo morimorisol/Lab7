@@ -16,7 +16,7 @@ public class ConsoleThread extends Thread {
             String line = scanner.nextLine();
             if ("save".equalsIgnoreCase(line)) {
                 try {
-                    GSONWriter.write(Server.file);
+                    GSONWriter.write(ServerManager.file);
                     ServerConfig.logger.info("Коллекция сохранена");
                 } catch (IOException e) {
                     ServerConfig.logger.info("Не удалось сохранить коллекцию");

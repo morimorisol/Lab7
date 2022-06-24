@@ -6,12 +6,17 @@ import java.io.Serializable;
 
 public class Coordinates implements Serializable {
 
+    public Coordinates(int x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
     @NotNull
-    private Integer x;
+    private int x;
 
     private float y;
 
-    public void setX(Integer x) {
+    public void setX(int x) {
         this.x = x;
     }
 
@@ -19,7 +24,7 @@ public class Coordinates implements Serializable {
         this.y = y;
     }
 
-    public Integer getX() {
+    public int getX() {
         return this.x;
     }
 

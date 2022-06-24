@@ -5,7 +5,6 @@ import Client.dataController.CommandSender;
 import Client.dataController.ResponseReceiver;
 import Common.handlers.TextFormatter;
 import Common.requestSystem.Response;
-
 import java.io.IOException;
 import java.io.StreamCorruptedException;
 import java.net.ConnectException;

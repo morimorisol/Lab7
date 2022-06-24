@@ -10,6 +10,11 @@ public class Chapter implements Serializable, Comparable<Chapter> {
     private String parentLegion;
     private long marinesCount;
 
+    public Chapter(String name, String parentLegion, long marinesCount) {
+        this.name = name;
+        this.parentLegion = parentLegion;
+        this.marinesCount = marinesCount;
+    }
 
     public void setMarinesCount(long marinesCount) {
         if (marinesCount >= Long.parseLong("1000")) {
