@@ -19,7 +19,7 @@ public class DatabaseInitializer {
     }
 
     public void initialize() throws SQLException {
-        sqlStatement.executeUpdate("CREATE SEQUENCE IF NOT EXISTS ids START 3;");
+        sqlStatement.executeUpdate("CREATE SEQUENCE IF NOT EXISTS ids START 1;");
 
         createspaceMarinesTable();
         createUsersTable();
@@ -30,7 +30,7 @@ public class DatabaseInitializer {
                 "id bigint PRIMARY KEY DEFAULT (nextval('ids')), " +
                 "name varchar(70) NOT NULL CHECK (name<>'')," +
                 "creationDate date DEFAULT (current_date)," +
-                "health int NOT NULL CHECK (age > 0)," +
+                "health int NOT NULL CHECK (health > 0)," +
                 "achievements varchar(70) NOT NULL CHECK (achievements<>'')," +
                 "xCoord int NOT NULL CHECK (xCoord < 603), " +
                 "yCoord real NOT NULL," +

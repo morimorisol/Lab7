@@ -2,7 +2,8 @@ package Server.databaseHandlers;
 
 public enum Statements {
     addSpaceMarine("INSERT INTO s337017SpaceMarines " +
-            "(id, name, creationDate, health, achievements, xCoord, yCoord, astartesCategory, weaponType, chapterName, chapterLegion, chapterMarinesCount, author" +
+            "(id, name, creationDate, health, achievements, xCoord, yCoord, astartesCategory, chapterName, " +
+            "chapterMarinesCount, weaponType, author) " +
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
 
     checkUserInData("SELECT * FROM s337017Users WHERE (name=? AND password=?);"),
@@ -23,10 +24,9 @@ public enum Statements {
             "xCoord = ?, " +
             "yCoord = ?, " +
             "astartesCategory = ?, " +
-            "weapoType = ?, " +
             "chapterName = ?, " +
-            "chapterLegion = ?, " +
-            "chapterMarinesCount = ? " +
+            "chapterMarinesCount = ?, " +
+            "weaponType = ? " +
             "WHERE (id=? AND author=?) RETURNING s337017SpaceMarines.id;"),
 
     getNextId("SELECT nextval('ids')"),
@@ -43,3 +43,4 @@ public enum Statements {
         return statement;
     }
 }
+

@@ -11,12 +11,12 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class CollectionManager {
 
     private final Date creationDate;
-    private volatile HashSet<SpaceMarine> SpaceMarines;
+    private volatile HashSet<SpaceMarine> spaceMarines;
     private final Lock readLock;
     private final Lock writeLock;
 
     public CollectionManager() {
-        SpaceMarines = new HashSet<>();
+        spaceMarines = new HashSet<>();
         creationDate = new Date();
         ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
         readLock = readWriteLock.readLock();
@@ -26,21 +26,21 @@ public class CollectionManager {
     public HashSet<SpaceMarine> getSpaceMarines() {
         readLock.lock();
         try {
-            return SpaceMarines;
+            return spaceMarines;
         } finally {
             readLock.unlock();
         }
     }
 
-    public void addSpaceMarine(SpaceMarine SpaceMarine) {
+    public void addSpaceMarine(SpaceMarine spaceMarine) {
         writeLock.lock();
-        SpaceMarines.add(SpaceMarine);
+        spaceMarines.add(spaceMarine);
         writeLock.unlock();
     }
 
     public void clear(String username) {
         readLock.lock();
-        SpaceMarines.removeIf(SpaceMarine -> SpaceMarine.getAuthorName().equals(username));
+        spaceMarines.removeIf(SpaceMarine -> SpaceMarine.getAuthorName().equals(username));
         readLock.unlock();
     }
 
@@ -49,7 +49,7 @@ public class CollectionManager {
         try {
             SpaceMarine SpaceMarine = getById(id);
             if (SpaceMarine != null) {
-                SpaceMarines.remove(SpaceMarine);
+                spaceMarines.remove(SpaceMarine);
                 return TextFormatter.colorMessage("SpaceMarine successfully removed");
             } else {
                 return TextFormatter.colorErrorMessage("SpaceMarine with that ID not found");
@@ -64,7 +64,7 @@ public class CollectionManager {
     public SpaceMarine getById(Long id) {
         readLock.lock();
         try {
-            return SpaceMarines.stream().filter(sm -> sm.getId()==id).findAny().orElse(null);
+            return spaceMarines.stream().filter(sm -> sm.getId()==id).findAny().orElse(null);
         } finally {
             readLock.unlock();
         }
@@ -74,9 +74,9 @@ public class CollectionManager {
         readLock.lock();
         try {
             return TextFormatter.colorInfoMessage("Information about collection: ")
-                    + TextFormatter.colorMessage("Collection type: " + SpaceMarines.getClass()
+                    + TextFormatter.colorMessage("Collection type: " + spaceMarines.getClass()
                     + " initialization date: " + creationDate
-                    + " count of SpaceMarines: " + SpaceMarines.size());
+                    + " count of SpaceMarines: " + spaceMarines.size());
         } finally {
             readLock.unlock();
         }
@@ -85,7 +85,7 @@ public class CollectionManager {
     public SpaceMarine getMaxByChapter(String username) {
         readLock.lock();
         try {
-            return SpaceMarines.stream().filter(((d) -> d.getAuthorName().equals(username))).max(SpaceMarine::compareByChapter).get();
+            return spaceMarines.stream().filter(((d) -> d.getAuthorName().equals(username))).max(SpaceMarine::compareByChapter).get();
         } finally {
             readLock.unlock();
         }
@@ -94,7 +94,7 @@ public class CollectionManager {
     public SpaceMarine getMax() {
         readLock.lock();
         try {
-            return SpaceMarines.stream().max(SpaceMarine::compareTo).get();
+            return spaceMarines.stream().max(SpaceMarine::compareTo).get();
         } finally {
             readLock.unlock();
         }
@@ -103,7 +103,7 @@ public class CollectionManager {
     public SpaceMarine getMin() {
         readLock.lock();
         try {
-            return SpaceMarines.stream().min(SpaceMarine::compareTo).get();
+            return spaceMarines.stream().min(SpaceMarine::compareTo).get();
         } finally {
             readLock.unlock();
         }

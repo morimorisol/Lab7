@@ -33,7 +33,7 @@ public class DatabaseWorker {
             }
             statement.setString(9, spaceMarine.getChapter().getName());
             statement.setLong(10, spaceMarine.getChapter().getMarinesCount());
-            statement.setString(11, String.valueOf(spaceMarine.getChapter().getMarinesCount()));
+            statement.setString(11, String.valueOf(spaceMarine.getWeaponType()));
             statement.setString(12, userData.getKey());
             statement.executeUpdate();
             return true;
