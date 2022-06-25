@@ -31,24 +31,23 @@ public class DatabaseInitializer {
                 "name varchar(70) NOT NULL CHECK (name<>'')," +
                 "creationDate date DEFAULT (current_date)," +
                 "health int NOT NULL CHECK (age > 0)," +
-                "achievements varchar(70) NOT NULL CHECK (name<>'')," +
+                "achievements varchar(70) NOT NULL CHECK (achievements<>'')," +
                 "xCoord int NOT NULL CHECK (xCoord < 603), " +
                 "yCoord real NOT NULL," +
-                "astartesCategory varchar(6) " +
-                "CHECK (astartesCategory='SCOUT' OR " +
-                "astartesCategory='INCEPTOR' OR " +
-                "astartesCategory='LIBRARIAN' OR " +
-                "astartesCategory='HELIX' OR " +
-                "astartesCategory IS NULL)," +
+                "astartsetsCategory varchar(10) " +
+                "CHECK (astartsetsCategory='LIBRARIAN' OR " +
+                "astartsetsCategory='SCOUT' OR " +
+                "astartsetsCategory='INCEPTOR' OR " +
+                "astartsetsCategory='HELIX' OR " +
+                "astartsetsCategory IS NULL)," +
+                "chapterName varchar(70)," +
+                "chapterMarinesCount int NOT NULL CHECK (chapterMarinesCount > 0)," +
                 "weaponType varchar(12) NOT NULL " +
                 "CHECK (weaponType='HEAVY_BOLTGUN' OR " +
                 "weaponType='BOLT_RIFLE' OR " +
                 "weaponType='COMBI_FLAMER' OR " +
                 "weaponType='COMBI_PLASMA_GUN' OR " +
                 "weaponType='GRENADE_LAUNCHER')," +
-                "chapterName varchar(75) NOT NULL)," +
-                "chapterLegion varchar(75) NOT NULL)," +
-                "chapterMarinesCount int NOT NULL CHECK (chapterMarinesCount > 0)," +
                 "author varchar(75) NOT NULL);");
     }
 
@@ -71,10 +70,10 @@ public class DatabaseInitializer {
             spaceMarine.setCoordinates(new Coordinates(resultSet.getInt(6), resultSet.getFloat(7)));
             spaceMarine.setAstartesCategory(resultSet.getString(8) != null ?
                     AstartesCategory.valueOf(resultSet.getString(8)) : null);
-            spaceMarine.setChapter(new Chapter(resultSet.getString(9), resultSet.getString(10), resultSet.getInt(11)));
-            spaceMarine.setWeaponType(resultSet.getString(12) != null ?
-                    WeaponType.valueOf(resultSet.getString(12)) : null);
-            spaceMarine.setAuthorName(resultSet.getString(13));
+            spaceMarine.setChapter(new Chapter(resultSet.getString(9), resultSet.getInt(10)));
+            spaceMarine.setWeaponType(resultSet.getString(11) != null ?
+                    WeaponType.valueOf(resultSet.getString(11)) : null);
+            spaceMarine.setAuthorName(resultSet.getString(12));
             try{
                 ServerConfig.MANAGER.addSpaceMarine(spaceMarine);
             } catch (Exception e){

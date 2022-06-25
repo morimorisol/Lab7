@@ -104,19 +104,8 @@ public class ArgumentsListener {
         TextFormatter.printInfoMessage("Введите данные о части:");
         Chapter chapter = new Chapter();
         inputName(chapter);
-        inputParentLegion(chapter);
         inputMarinesCount(chapter);
         return chapter;
-    }
-
-    private void inputParentLegion(Chapter chapter) {
-        TextFormatter.printInfoMessage("Введите имя родительского легиона: ");
-        try {
-            chapter.setParentLegion(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            TextFormatter.printErrorMessage("Ошибка ввода");
-            inputParentLegion(chapter);
-        }
     }
 
     private void inputName(Chapter chapter) {

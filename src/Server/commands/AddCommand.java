@@ -26,7 +26,7 @@ public class AddCommand extends CommandAbstract {
         }
     }
 
-    public void setSpaceMarine(SpaceMarine SpaceMarine) {
+    public void setSpaceMarine(SpaceMarine spaceMarine) {
         this.spaceMarine = spaceMarine;
     }
 }

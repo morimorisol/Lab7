@@ -7,12 +7,10 @@ import java.util.Comparator;
 public class Chapter implements Serializable, Comparable<Chapter> {
 
     private String name;
-    private String parentLegion;
     private long marinesCount;
 
-    public Chapter(String name, String parentLegion, long marinesCount) {
+    public Chapter(String name, long marinesCount) {
         this.name = name;
-        this.parentLegion = parentLegion;
         this.marinesCount = marinesCount;
     }
 
@@ -38,7 +36,6 @@ public class Chapter implements Serializable, Comparable<Chapter> {
         if (parentLegion == null | parentLegion.isEmpty()) {
             throw new IllegalArgumentException("Некорректное имя родительского легиона, попробуйте снова");
         }
-        this.parentLegion = parentLegion;
     }
 
 
@@ -48,13 +45,10 @@ public class Chapter implements Serializable, Comparable<Chapter> {
     public String getName() {
         return name;
     }
-    public String getParentLegion() {
-        return parentLegion;
-    }
 
     @Override
     public String toString() {
-        return "имя: " + name + " родительский легион: " + parentLegion + " количество кораблей: " + marinesCount;
+        return "имя: " + name + " количество кораблей: " + marinesCount;
     }
 
     @Override

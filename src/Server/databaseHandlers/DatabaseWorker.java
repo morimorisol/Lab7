@@ -32,10 +32,9 @@ public class DatabaseWorker {
                 statement.setString(8, String.valueOf(spaceMarine.getAstartesCategory()));
             }
             statement.setString(9, spaceMarine.getChapter().getName());
-            statement.setString(10, spaceMarine.getChapter().getName());
-            statement.setString(11, spaceMarine.getChapter().getParentLegion());
-            statement.setString(12, String.valueOf(spaceMarine.getChapter().getMarinesCount()));
-            statement.setString(13, userData.getKey());
+            statement.setLong(10, spaceMarine.getChapter().getMarinesCount());
+            statement.setString(11, String.valueOf(spaceMarine.getChapter().getMarinesCount()));
+            statement.setString(12, userData.getKey());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -67,10 +66,9 @@ public class DatabaseWorker {
             statement.setInt(5, spaceMarine.getCoordinates().getX());
             statement.setFloat(6, spaceMarine.getCoordinates().getY());
             statement.setString(7, spaceMarine.getAstartesCategory() == null ? null : String.valueOf(spaceMarine.getAstartesCategory()));
-            statement.setString(8, spaceMarine.getChapter().getName());
-            statement.setString(8, spaceMarine.getChapter().getParentLegion());
-            statement.setLong(9, spaceMarine.getChapter().getMarinesCount());
-            statement.setString(10, String.valueOf(spaceMarine.getWeaponType()));
+            statement.setString(8, String.valueOf(spaceMarine.getWeaponType()));
+            statement.setString(9, spaceMarine.getChapter().getName());
+            statement.setLong(10, spaceMarine.getChapter().getMarinesCount());
             statement.setLong(11, id);
             statement.setString(12, userData.getKey());
             ResultSet resultSet = statement.executeQuery();
