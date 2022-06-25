@@ -64,7 +64,8 @@ public class ClientManager {
             TextFormatter.printErrorMessage("Server invalid or closed. Try to connect again");
             startClient();
         } catch (Exception e) {
-            e.printStackTrace();
+            TextFormatter.printErrorMessage("Unknown error. Try to connect again");
+            startClient();
         }
     }
 

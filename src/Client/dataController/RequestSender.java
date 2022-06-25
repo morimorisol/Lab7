@@ -4,8 +4,6 @@ import Client.commandDispatcher.RequestBuilder;
 import Common.requestSystem.Serializer;
 import Common.requestSystem.requests.Request;
 import javafx.util.Pair;
-
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;

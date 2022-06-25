@@ -8,9 +8,7 @@ import java.util.List;
  */
 public final class LineSplitter {
 
-    private LineSplitter() {
-        //not called
-    }
+    private LineSplitter() {}
 
     public static List<String> smartSplit(String line) {
         List<String> splittedLine = new ArrayList<>();

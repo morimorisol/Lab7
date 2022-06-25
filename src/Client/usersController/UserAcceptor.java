@@ -6,7 +6,6 @@ import Common.requestSystem.responses.SignInResponse;
 import Common.requestSystem.responses.SignUpResponse;
 import javafx.util.Pair;
 
-
 public class UserAcceptor {
 
     private final AuthorizationModule authorizationModule;

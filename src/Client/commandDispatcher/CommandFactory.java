@@ -40,7 +40,6 @@ public class CommandFactory {
                 case "print_descending":
                 case "max_by_cave":
                 case "show":
-                    //todo реализовать exit
                     if (args.size() != 0) {
                         return null;
                     }
