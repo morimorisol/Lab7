@@ -1,119 +1,131 @@
 package Server;
 
-import Common.commands.CommandAbstract;
-import Common.requestSystem.Response;
+import Common.requestSystem.requests.Request;
+import Common.requestSystem.responses.Response;
 import Server.databaseHandlers.DatabaseConnector;
-import Server.fileHandlers.GSONReader;
-import Server.fileHandlers.GSONWriter;
+import Server.databaseHandlers.DatabaseInitializer;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
+public class ServerManager {
 
-public final class ServerManager {
+//    to use on PC
     private static final DatabaseConnector CONNECTOR =
             new DatabaseConnector("jdbc:postgresql://localhost:5432/lab7",
                     "postgres", "Aa290103");
+    private static final int THREADS = Runtime.getRuntime().availableProcessors();
+    private static boolean isWorking = true;
+    private final ExecutorService readExecutor = Executors.newFixedThreadPool(THREADS);
+    private final ExecutorService handleExecutor = Executors.newFixedThreadPool(THREADS);
+    private final ExecutorService sendExecutor = Executors.newFixedThreadPool(THREADS);
+    private volatile Connection dbConnection;
+    private volatile Selector selector;
+    private volatile Set<SelectionKey> workingKeys = Collections.synchronizedSet(new HashSet<>());
 
-    private static Selector selector;
-    static File file;
-
-    protected ServerManager() {
-        throw new UnsupportedOperationException("Не может быть создан экземпляр класса");
-    }
-
-    public static void start(){
+    public void run() {
+        try {
+            dbConnection = CONNECTOR.getNewConnection();
+            DatabaseInitializer initializer = new DatabaseInitializer(dbConnection);
+            initializer.initialize();
+            initializer.fillCollection(dbConnection);
+        } catch (SQLException e) {
+            ServerConfig.logger.info("Problems during SQL DB initialization");
+            isWorking = false;
+        }
         ConsoleThread consoleThread = new ConsoleThread();
-        consoleThread.start();
-        startServer();
-        consoleThread.shutdown();
+        if (isWorking) {
+            consoleThread.start();
+            startServer();
+        }
+        readExecutor.shutdown();
+        handleExecutor.shutdown();
+        sendExecutor.shutdown();
     }
 
-    private static void startServer() {
-        ServerConfig.logger.info("Сервер готов к работе");
-        String collectionPath = System.getenv("labCollection");
-        file = new File(collectionPath);
-        fillCollectionFromFile(file);
+    private void startServer() {
+        ServerConfig.logger.info("Server started");
         try {
             selector = Selector.open();
             ServerSocketChannel server = initChannel(selector);
             startSelectorLoop(server);
         } catch (IOException e) {
-            ServerConfig.logger.info("Некоторые проблемы с IO. Попробуйте снова");
+            ServerConfig.logger.info("Some problems with IO. Try again");
+            isWorking = false;
         } catch (ClassNotFoundException e) {
-            ServerConfig.logger.info("Попробуйте сериализовать несериализованный объект");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            ServerConfig.logger.info("Trying to serialize non-serializable object");
+            isWorking = false;
         }
     }
 
-    private static ServerSocketChannel initChannel(Selector selector) throws IOException {
+    private void startSelectorLoop(ServerSocketChannel channel) throws IOException, ClassNotFoundException {
+        while (channel.isOpen() && isWorking) {
+            if (selector.select(1) != 0) {
+                startIteratorLoop(channel);
+            }
+        }
+    }
+
+    private void startIteratorLoop(ServerSocketChannel channel) throws IOException {
+        Set<SelectionKey> readyKeys = selector.selectedKeys();
+        Iterator<SelectionKey> iterator = readyKeys.iterator();
+        while (iterator.hasNext()) {
+            SelectionKey key = iterator.next();
+            iterator.remove();
+            if (key.isValid() && !workingKeys.contains(key)) {
+                if (key.isAcceptable()) {
+                    accept(channel);
+                } else if (key.isReadable()) {
+                    workingKeys.add(key);
+                    ServerConfig.logger.info("Client " + ((SocketChannel) key.channel()).getLocalAddress() + " sent message");
+                    Supplier<Request> requestReader = new RequestReader(key);
+                    Consumer<Response> responseSender = new ResponseSender(key, workingKeys);
+                    CompletableFuture
+                            .supplyAsync(requestReader, readExecutor)
+                            .thenApplyAsync(request -> {
+                                if (request != null) {
+                                    RequestHandler requestHandler = new RequestHandler(request, dbConnection);
+                                    try {
+                                        return requestHandler.handle(request);
+                                    } catch (IOException | SQLException e) {
+                                        ServerConfig.logger.info("info during request handling");
+                                        return null;
+                                    }
+                                } else return null;
+                            }, handleExecutor)
+                            .thenAcceptAsync(responseSender, sendExecutor);
+                }
+            }
+        }
+    }
+
+    private void accept(ServerSocketChannel channel) throws IOException {
+        SocketChannel socketChannel = channel.accept();
+        ServerConfig.logger.info("Server get connection from " + socketChannel.getLocalAddress());
+        socketChannel.configureBlocking(false);
+        socketChannel.register(selector, SelectionKey.OP_READ);
+    }
+
+    private ServerSocketChannel initChannel(Selector selector) throws IOException {
         ServerSocketChannel server = ServerSocketChannel.open();
-        ServerConfig.logger.info("Сокет готов к работе");
+        ServerConfig.logger.info("Socket opened");
         server.socket().bind(new InetSocketAddress(ServerConfig.SERVER_PORT));
         server.configureBlocking(false);
         server.register(selector, SelectionKey.OP_ACCEPT);
         return server;
     }
 
-    private static void startSelectorLoop(ServerSocketChannel channel) throws IOException, ClassNotFoundException, InterruptedException {
-        while (channel.isOpen()) {
-            selector.select();
-            startIteratorLoop(channel);
-        }
-    }
-
-    private static void startIteratorLoop(ServerSocketChannel channel) throws IOException, ClassNotFoundException {
-        Set<SelectionKey> readyKeys = selector.selectedKeys();
-        Iterator<SelectionKey> iterator = readyKeys.iterator();
-        while (iterator.hasNext()) {
-            SelectionKey key = iterator.next();
-            iterator.remove();
-            if (key.isAcceptable()) {
-                SocketChannel socketChannel = channel.accept();
-                ServerConfig.logger.info("Сервер соединен с " + socketChannel.getLocalAddress());
-                socketChannel.configureBlocking(false);
-                socketChannel.register(selector, SelectionKey.OP_READ);
-            } else if (key.isReadable()) {
-                SocketChannel socketChannel = (SocketChannel) key.channel();
-                ServerConfig.logger.info("Клиент " + socketChannel.getLocalAddress() + " отправил сообщение");
-                CommandAbstract command = IOController.getCommand(socketChannel);
-                ServerConfig.logger.info("Сервер получил [" + command.getName() + "] команду");
-                HistorySaver.addCommandInHistory(command);
-                try {
-                    Response response = IOController.buildResponse(command, ServerConfig.manager);
-                    ByteBuffer buffer = Serializer.serializeResponse(response);
-                    socketChannel.write(buffer);
-                    ServerConfig.logger.info("Сервер написал ответ клиенту");
-                } catch (Exception e) {
-                    GSONWriter.write(file);
-                    ServerConfig.logger.info("Клиент " + socketChannel.getLocalAddress() + " отсоединен. Коллекция успешно сохранена");
-                    socketChannel.close();
-                    break;
-                }
-            }
-        }
-    }
-
-    private static void fillCollectionFromFile(File file) {
-        GSONReader reader = new GSONReader();
-        try {
-            reader.read(file);
-            ServerConfig.logger.info("Коллекция успешно заполнена");
-        } catch (IOException e) {
-            ServerConfig.logger.info("Файл не существует");
-            System.exit(0);
-        } catch (NullPointerException e) {
-            ServerConfig.logger.info("Данные некорректны");
-            System.exit(0);
-        }
+    public static void closeServer() {
+        isWorking = false;
     }
 }

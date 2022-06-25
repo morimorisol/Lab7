@@ -1,16 +1,17 @@
 package Client.usersController;
 
+import Common.TextFormatter;
+import Common.requestSystem.requests.Request;
+import Common.requestSystem.requests.SignInRequest;
+import Common.requestSystem.requests.SignUpRequest;
 import javafx.util.Pair;
-import lab7.common.util.handlers.TextFormatter;
-import lab7.common.util.requestSystem.requests.Request;
-import lab7.common.util.requestSystem.requests.SignInRequest;
-import lab7.common.util.requestSystem.requests.SignUpRequest;
+
 
 import java.util.Scanner;
 
 public class AuthorizationModule {
-    private static final Scanner SCANNER = new Scanner(System.in);
 
+    private static final Scanner SCANNER = new Scanner(System.in);
     private boolean authorizationDone = false;
 
     public Request greet() {

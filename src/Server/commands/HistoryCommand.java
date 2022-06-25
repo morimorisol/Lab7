@@ -1,11 +1,10 @@
 package Server.commands;
 
-
-import lab7.common.util.handlers.TextFormatter;
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.server.CollectionManager;
-import lab7.server.HistorySaver;
-import lab7.server.databaseHandlers.DatabaseWorker;
+import Common.TextFormatter;
+import Common.requestSystem.responses.CommandResponse;
+import Server.CollectionManager;
+import Server.HistorySaver;
+import Server.databaseHandlers.DatabaseWorker;
 
 public class HistoryCommand extends CommandAbstract {
 

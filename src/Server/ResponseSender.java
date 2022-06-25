@@ -1,9 +1,8 @@
 package Server;
 
-import lab7.common.util.requestSystem.Serializer;
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.common.util.requestSystem.responses.Response;
-
+import Common.requestSystem.Serializer;
+import Common.requestSystem.responses.CommandResponse;
+import Common.requestSystem.responses.Response;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -31,10 +30,10 @@ public class ResponseSender implements Consumer<Response> {
             ByteBuffer buffer = serializer.serializeResponse(response);
             socketChannel.write(buffer);
         } catch (IOException e) {
-            ServerConfig.LOGGER.error("Problem with response serializing or sending");
+            ServerConfig.logger.info("Problem with response serializing or sending");
             return;
         }
-        ServerConfig.LOGGER.info("Server wrote response to client");
+        ServerConfig.logger.info("Server wrote response to client");
         workingKeys.remove(key);
     }
 }

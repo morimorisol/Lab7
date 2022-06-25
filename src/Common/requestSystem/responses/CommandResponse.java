@@ -1,6 +1,6 @@
 package Common.requestSystem.responses;
 
-import lab7.common.util.entities.Dragon;
+import Common.entities.SpaceMarine;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,14 +9,14 @@ public class CommandResponse implements Serializable, Response {
 
     private static final ResponseType type = ResponseType.COMMAND;
     private final String message;
-    private List<Dragon> dragons = null;
+    private List<SpaceMarine> SpaceMarines = null;
 
     public CommandResponse(String message) {
         this.message = message;
     }
 
-    public CommandResponse(List<Dragon> dragons, String message) {
-        this.dragons = dragons;
+    public CommandResponse(List<SpaceMarine> SpaceMarines, String message) {
+        this.SpaceMarines = SpaceMarines;
         this.message = message;
     }
 
@@ -24,8 +24,8 @@ public class CommandResponse implements Serializable, Response {
         return message;
     }
 
-    public List<Dragon> getDragons() {
-        return dragons;
+    public List<SpaceMarine> getSpaceMarines() {
+        return SpaceMarines;
     }
 
     @Override

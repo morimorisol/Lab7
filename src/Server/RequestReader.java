@@ -1,8 +1,7 @@
 package Server;
 
-import lab7.common.util.requestSystem.Serializer;
-import lab7.common.util.requestSystem.requests.Request;
-
+import Common.requestSystem.Serializer;
+import Common.requestSystem.requests.Request;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -25,10 +24,10 @@ public class RequestReader implements Supplier<Request> {
             Serializer serializer = new Serializer();
             return serializer.deserializeRequest(readBuffer.array());
         } catch (IOException e) {
-            ServerConfig.LOGGER.error("Client disconnected");
+            ServerConfig.logger.info("Client disconnected");
             return null;
         } catch (ClassNotFoundException e) {
-            ServerConfig.LOGGER.error("Trying to deserialize incorrect object");
+            ServerConfig.logger.info("Trying to deserialize incorrect object");
             return null;
         }
     }

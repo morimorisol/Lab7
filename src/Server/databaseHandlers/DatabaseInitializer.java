@@ -77,7 +77,7 @@ public class DatabaseInitializer {
                         WeaponType.BOLT_RIFLE.valueOf(resultSet.getString(11)) : null);
             dragon.setChapter(new Chapter(resultSet.getString(9), resultSet.getString(9), resultSet.getLong(10)));
             dragon.setAuthorName(resultSet.getString(12));
-            ServerConfig.manager.addSpaceMarine(dragon);
+            ServerConfig.MANAGER.addSpaceMarine(dragon);
             } catch (Exception e) {
                 ServerConfig.logger.info("Dragon with id = " + resultSet.getLong(1) + " is incorrect");
                 System.exit(1);

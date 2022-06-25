@@ -1,14 +1,14 @@
 package Client;
 
+import Client.commandDispatcher.LineSplitter;
+import Client.dataController.RequestSender;
+import Client.dataController.ResponseReceiver;
+import Client.usersController.AuthorizationModule;
+import Client.usersController.UserAcceptor;
+import Common.TextFormatter;
+import Common.requestSystem.requests.*;
+import Common.requestSystem.responses.*;
 import javafx.util.Pair;
-import lab7.client.commandDispatcher.LineSplitter;
-import lab7.client.dataController.RequestSender;
-import lab7.client.dataController.ResponseReceiver;
-import lab7.client.usersController.AuthorizationModule;
-import lab7.client.usersController.UserAcceptor;
-import lab7.common.util.handlers.TextFormatter;
-import lab7.common.util.requestSystem.requests.Request;
-import lab7.common.util.requestSystem.responses.*;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -63,10 +63,12 @@ public class ClientManager {
         } catch (IOException e) {
             TextFormatter.printErrorMessage("Server invalid or closed. Try to connect again");
             startClient();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private void startSelectorLoop(SocketChannel channel, Scanner sc) throws IOException, ClassNotFoundException, InterruptedException {
+    private void startSelectorLoop(SocketChannel channel, Scanner sc) throws Exception {
         while (isWorking) {
             selector.select();
             if (!startIteratorLoop(channel, sc)) {
@@ -75,7 +77,7 @@ public class ClientManager {
         }
     }
 
-    private boolean startIteratorLoop(SocketChannel channel, Scanner sc) throws IOException, ClassNotFoundException, InterruptedException {
+    private boolean startIteratorLoop(SocketChannel channel, Scanner sc) throws Exception {
         Set<SelectionKey> readyKeys = selector.selectedKeys();
         Iterator<SelectionKey> iterator = readyKeys.iterator();
         while (iterator.hasNext()) {
@@ -96,8 +98,8 @@ public class ClientManager {
                 } else {
                     CommandResponse commandResponse = (CommandResponse) response;
                     TextFormatter.printInfoMessage(commandResponse.getMessage());
-                    if (commandResponse.getDragons() != null) {
-                        TextFormatter.printMessage(commandResponse.getDragons().toString());
+                    if (commandResponse.getSpaceMarines() != null) {
+                        TextFormatter.printMessage(commandResponse.getSpaceMarines().toString());
                     }
                 }
             } else if (key.isWritable()) {

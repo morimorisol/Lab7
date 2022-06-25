@@ -19,7 +19,7 @@ public class Serializer {
         return bufferToSend;
     }
 
-    public synchronized Response deserializeResponse(byte[] bytes) throws IOException, ClassNotFoundException {
+    public static synchronized Response deserializeResponse(byte[] bytes) throws IOException, ClassNotFoundException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
         Response response = (Response) objectInputStream.readObject();

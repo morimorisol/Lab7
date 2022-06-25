@@ -1,7 +1,6 @@
 package Server;
 
-import lab7.server.commands.CommandAbstract;
-
+import Server.commands.CommandAbstract;
 import java.util.ArrayList;
 import java.util.List;
 

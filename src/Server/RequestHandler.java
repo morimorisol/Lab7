@@ -1,15 +1,11 @@
 package Server;
 
-import lab7.common.util.requestSystem.requests.*;
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.common.util.requestSystem.responses.Response;
-import lab7.common.util.requestSystem.responses.SignInResponse;
-import lab7.common.util.requestSystem.responses.SignUpResponse;
-import lab7.server.commands.*;
-import lab7.server.databaseHandlers.AuthorizationModule;
-import lab7.server.databaseHandlers.DatabaseWorker;
-import lab7.server.databaseHandlers.UsersChecker;
-
+import Common.requestSystem.requests.*;
+import Common.requestSystem.responses.*;
+import Server.commands.*;
+import Server.databaseHandlers.AuthorizationModule;
+import Server.databaseHandlers.DatabaseWorker;
+import Server.databaseHandlers.UsersChecker;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -39,8 +35,8 @@ public class RequestHandler {
                     return new CommandResponse("Your login or password is incorrect!");
                 }
                 return handleCommand(command);
-            } else if (request.getType().equals(RequestType.COMMAND_WITH_DRAGON)) {
-                CommandAbstract command = getCommandWithDragon((CommandRequestWithDragon) request);
+            } else if (request.getType().equals(RequestType.COMMAND_WITH_SPACEMARINE)) {
+                CommandAbstract command = getCommandWithSpaceMarine((CommandRequestWithSpaceMarine) request);
                 if (!usersChecker.checkUserInData()) {
                     return new CommandResponse("Your login or password is incorrect!");
                 }
@@ -51,8 +47,8 @@ public class RequestHandler {
                     return new CommandResponse("Your login or password is incorrect!");
                 }
                 return handleCommand(command);
-            } else if (request.getType().equals(RequestType.COMMAND_WITH_DRAGON_AND_ID)) {
-                CommandAbstract command = getCommandWithDragonAndId((CommandRequestWithDragonAndId) request);
+            } else if (request.getType().equals(RequestType.COMMAND_WITH_SPACEMARINE_AND_ID)) {
+                CommandAbstract command = getCommandWithSpaceMarineAndId((CommandRequestWithSpaceMarineAndId) request);
                 if (!usersChecker.checkUserInData()) {
                     return new CommandResponse("Your login or password is incorrect!");
                 }
@@ -67,8 +63,8 @@ public class RequestHandler {
                 return new SignUpResponse(authorizationModule.isCorrectUser(), ((SignUpRequest) request).getPair());
             }
         } catch (NullPointerException e) {
-            ServerConfig.LOGGER.error("Received command is null");
-            ServerConfig.LOGGER.error("Response will not write");
+            ServerConfig.logger.info("Received command is null");
+            ServerConfig.logger.info("Response will not write");
             return null;
         }
         return null;
@@ -87,7 +83,7 @@ public class RequestHandler {
             case "show":
                 return new ShowCommand(databaseWorker);
             case "max_by_cave":
-                return new MaxByCaveCommand(databaseWorker);
+                return new MaxByChapterCommand(databaseWorker);
             case "print_ascending":
                 return new PrintAscendingCommand(databaseWorker);
             case "print_descending":
@@ -97,14 +93,14 @@ public class RequestHandler {
         }
     }
 
-    private CommandAbstract getCommandWithDragon(CommandRequestWithDragon commandRequestWithDragon) {
-        switch (commandRequestWithDragon.getName()) {
+    private CommandAbstract getCommandWithSpaceMarine(CommandRequestWithSpaceMarine commandRequestWithSpaceMarine) {
+        switch (commandRequestWithSpaceMarine.getName()) {
             case "add":
-                return new AddCommand(commandRequestWithDragon.getDragon(), databaseWorker);
+                return new AddCommand(commandRequestWithSpaceMarine.getSpaceMarine(), databaseWorker);
             case "add_if_min":
-                return new AddIfMinCommand(commandRequestWithDragon.getDragon(), databaseWorker);
+                return new AddIfMinCommand(commandRequestWithSpaceMarine.getSpaceMarine(), databaseWorker);
             case "add_if_max":
-                return new AddIfMaxCommand(commandRequestWithDragon.getDragon(), databaseWorker);
+                return new AddIfMaxCommand(commandRequestWithSpaceMarine.getSpaceMarine(), databaseWorker);
             default:
                 return null;
         }
@@ -119,18 +115,18 @@ public class RequestHandler {
         }
     }
 
-    private CommandAbstract getCommandWithDragonAndId(CommandRequestWithDragonAndId commandRequestWithDragonAndId) {
-        switch (commandRequestWithDragonAndId.getName()) {
+    private CommandAbstract getCommandWithSpaceMarineAndId(CommandRequestWithSpaceMarineAndId commandRequestWithSpaceMarineAndId) {
+        switch (commandRequestWithSpaceMarineAndId.getName()) {
             case "update_by_id":
-                return new UpdateByIdCommand(commandRequestWithDragonAndId.getId(),
-                                                    commandRequestWithDragonAndId.getDragon(), databaseWorker);
+                return new UpdateByIdCommand(commandRequestWithSpaceMarineAndId.getId(),
+                        commandRequestWithSpaceMarineAndId.getSpaceMarine(), databaseWorker);
             default:
                 return null;
         }
     }
 
     private CommandResponse handleCommand(CommandAbstract command) {
-        ServerConfig.LOGGER.info("Server recieve [" + command.getName() + "] command");
+        ServerConfig.logger.info("Server recieve [" + command.getName() + "] command");
         HistorySaver historySaver = new HistorySaver();
         historySaver.addCommandInHistory(command);
         return (CommandResponse) command.execute(ServerConfig.MANAGER);

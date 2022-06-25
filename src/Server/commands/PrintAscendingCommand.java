@@ -1,10 +1,10 @@
 package Server.commands;
 
-import lab7.common.util.entities.Dragon;
-import lab7.common.util.handlers.TextFormatter;
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.server.CollectionManager;
-import lab7.server.databaseHandlers.DatabaseWorker;
+import Common.TextFormatter;
+import Common.entities.SpaceMarine;
+import Common.requestSystem.responses.CommandResponse;
+import Server.CollectionManager;
+import Server.databaseHandlers.DatabaseWorker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,7 @@ public class PrintAscendingCommand extends CommandAbstract {
 
     @Override
     public CommandResponse execute(CollectionManager manager) {
-        List<Dragon> dragons = new ArrayList<>(manager.getDragons());
+        List<SpaceMarine> dragons = new ArrayList<>(manager.getSpaceMarines());
         Collections.sort(dragons);
         return new CommandResponse(dragons, TextFormatter.colorInfoMessage("List of dragons compared of age: "));
     }

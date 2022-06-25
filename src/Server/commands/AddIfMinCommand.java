@@ -1,28 +1,27 @@
 package Server.commands;
 
-import lab7.common.util.entities.Dragon;
-import lab7.common.util.handlers.TextFormatter;
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.server.CollectionManager;
-import lab7.server.databaseHandlers.DatabaseWorker;
-
+import Common.TextFormatter;
+import Common.entities.SpaceMarine;
+import Common.requestSystem.responses.CommandResponse;
+import Server.CollectionManager;
+import Server.databaseHandlers.DatabaseWorker;
 
 public class AddIfMinCommand extends CommandAbstract {
 
-    private final Dragon dragon;
+    private final SpaceMarine spaceMarine;
 
-    public AddIfMinCommand(Dragon dragon, DatabaseWorker databaseWorker) {
+    public AddIfMinCommand(SpaceMarine spaceMarine, DatabaseWorker databaseWorker) {
         super("add_if_min", databaseWorker);
-        this.dragon = dragon;
+        this.spaceMarine = spaceMarine;
     }
 
     @Override
     public CommandResponse execute(CollectionManager manager) {
-        int minAge = manager.getMin().getAge();
-        if (dragon.getAge() < minAge && getDatabaseWorker().addDragon(dragon)) {
-            dragon.setAuthorName(getDatabaseWorker().getUsername());
-            manager.addDragon(dragon);
-            return new CommandResponse(TextFormatter.colorInfoMessage("Dragon successfully added"));
+        long minHealth = manager.getMin().getHealth();
+        if (spaceMarine.getHealth() < minHealth && getDatabaseWorker().addSpaceMarine(spaceMarine)) {
+            spaceMarine.setAuthorName(getDatabaseWorker().getUsername());
+            manager.addSpaceMarine(spaceMarine);
+            return new CommandResponse(TextFormatter.colorInfoMessage("SpaceMarine successfully added"));
         } else {
             return new CommandResponse(TextFormatter.colorInfoMessage("В коллекции есть дракон помладше!"));
         }

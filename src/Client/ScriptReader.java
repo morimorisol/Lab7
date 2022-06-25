@@ -1,7 +1,6 @@
 package Client;
 
-import lab7.client.commandDispatcher.LineSplitter;
-
+import Client.commandDispatcher.LineSplitter;
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;

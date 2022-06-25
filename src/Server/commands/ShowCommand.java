@@ -1,9 +1,9 @@
 package Server.commands;
 
-import lab7.common.util.entities.Dragon;
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.server.CollectionManager;
-import lab7.server.databaseHandlers.DatabaseWorker;
+import Common.entities.SpaceMarine;
+import Common.requestSystem.responses.CommandResponse;
+import Server.CollectionManager;
+import Server.databaseHandlers.DatabaseWorker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ public class ShowCommand extends CommandAbstract {
 
     @Override
     public CommandResponse execute(CollectionManager manager) {
-        List<Dragon> sortedList = new ArrayList<>(manager.getDragons());
-        sortedList = sortedList.stream().sorted(Dragon::compareByName).collect(Collectors.toList());
+        List<SpaceMarine> sortedList = new ArrayList<>(manager.getSpaceMarines());
+        sortedList = sortedList.stream().sorted(SpaceMarine::compareByName).collect(Collectors.toList());
         return new CommandResponse(sortedList, "List of dragons: ");
     }
 }

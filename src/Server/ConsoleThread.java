@@ -1,30 +1,20 @@
 package Server;
 
-import Server.fileHandlers.GSONWriter;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class ConsoleThread extends Thread {
-    private static final Scanner scanner = ServerConfig.scanner;
+    private static final Scanner SCANNER = new Scanner(System.in);
     private volatile boolean running = true;
 
     @Override
     public void run() {
-        ServerConfig.logger.info("Консоль запущена");
+        ServerConfig.logger.info("Console thread is running");
         while (running) {
-            String line = scanner.nextLine();
-            if ("save".equalsIgnoreCase(line)) {
-                try {
-                    GSONWriter.write(ServerManager.file);
-                    ServerConfig.logger.info("Коллекция сохранена");
-                } catch (IOException e) {
-                    ServerConfig.logger.info("Не удалось сохранить коллекцию");
-                }
-            }
+            String line = SCANNER.nextLine();
             if ("exit".equalsIgnoreCase(line)) {
-                ServerConfig.logger.info("Сервер закрыт");
-                System.exit(0);
+                ServerConfig.logger.info("Server closed");
+                ServerManager.closeServer();
+                this.running = false;
             }
         }
     }

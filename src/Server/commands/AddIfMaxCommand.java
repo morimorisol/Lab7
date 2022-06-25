@@ -1,27 +1,27 @@
 package Server.commands;
 
-import lab7.common.util.entities.Dragon;
-import lab7.common.util.handlers.TextFormatter;
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.server.CollectionManager;
-import lab7.server.databaseHandlers.DatabaseWorker;
+import Common.TextFormatter;
+import Common.entities.SpaceMarine;
+import Common.requestSystem.responses.CommandResponse;
+import Server.CollectionManager;
+import Server.databaseHandlers.DatabaseWorker;
 
 public class AddIfMaxCommand extends CommandAbstract {
 
-    private final Dragon dragon;
+    private final SpaceMarine spaceMarine;
 
-    public AddIfMaxCommand(Dragon dragon, DatabaseWorker databaseWorker) {
+    public AddIfMaxCommand(SpaceMarine spaceMarine, DatabaseWorker databaseWorker) {
         super("add_if_max", databaseWorker);
-        this.dragon = dragon;
+        this.spaceMarine = spaceMarine;
     }
 
     @Override
     public CommandResponse execute(CollectionManager manager) {
-        int maxAge = manager.getMax().getAge();
-        if (dragon.getAge() > maxAge && getDatabaseWorker().addDragon(dragon)) {
-            dragon.setAuthorName(getDatabaseWorker().getUsername());
-            manager.addDragon(dragon);
-            return new CommandResponse(TextFormatter.colorInfoMessage("Dragon successfully added"));
+        long maxHealth = manager.getMax().getHealth();
+        if (spaceMarine.getHealth() > maxHealth && getDatabaseWorker().addSpaceMarine(spaceMarine)) {
+            spaceMarine.setAuthorName(getDatabaseWorker().getUsername());
+            manager.addSpaceMarine(spaceMarine);
+            return new CommandResponse(TextFormatter.colorInfoMessage("SpaceMarine successfully added"));
         } else {
             return new CommandResponse(TextFormatter.colorInfoMessage("В коллекции есть дракон постарше!"));
         }

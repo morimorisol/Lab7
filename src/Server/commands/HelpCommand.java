@@ -1,8 +1,8 @@
 package Server.commands;
 
-import lab7.common.util.requestSystem.responses.CommandResponse;
-import lab7.server.CollectionManager;
-import lab7.server.databaseHandlers.DatabaseWorker;
+import Common.requestSystem.responses.CommandResponse;
+import Server.CollectionManager;
+import Server.databaseHandlers.DatabaseWorker;
 
 import java.util.HashMap;
 import java.util.Map;

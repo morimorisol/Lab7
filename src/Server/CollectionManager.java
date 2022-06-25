@@ -1,92 +1,58 @@
 package Server;
 
-import lab7.common.util.entities.Dragon;
-import lab7.common.util.handlers.TextFormatter;
-
+import Common.TextFormatter;
+import Common.entities.SpaceMarine;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/**
- * Класс коллекции, содержащий текущую коллекцию <b>dragons</b>,
- * отвечает за генерацию ID для новых элементов и за все действия,
- * связанные с коллекцией.
- */
 public class CollectionManager {
-    /**
-     * Дата создания коллекции
-     */
-    private final Date creationDate;
-    /**
-     * Сет объектов класса Dragon, текущее содержимое коллекции
-     */
-    private volatile HashSet<Dragon> dragons;
 
+    private final Date creationDate;
+    private volatile HashSet<SpaceMarine> SpaceMarines;
     private final Lock readLock;
     private final Lock writeLock;
 
-    /**
-     * Конструктор объекта данного класса.
-     * Устанавливает коллекцию и дату её создания
-     */
     public CollectionManager() {
-        dragons = new HashSet<>();
+        SpaceMarines = new HashSet<>();
         creationDate = new Date();
         ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
         readLock = readWriteLock.readLock();
         writeLock = readWriteLock.writeLock();
     }
 
-    /**
-     * Метод, возвращающий текущую коллекцию драконов в формате HashSet
-     *
-     * @return HashSet драконов, находящихся в коллекции
-     */
-    public HashSet<Dragon> getDragons() {
+    public HashSet<SpaceMarine> getSpaceMarines() {
         readLock.lock();
         try {
-            return dragons;
+            return SpaceMarines;
         } finally {
             readLock.unlock();
         }
     }
 
-    /**
-     * Метод, добавляющий полученного дракона в коллекцию
-     *
-     * @param dragon дракон, которого нужно добавить в коллекцию
-     */
-    public void addDragon(Dragon dragon) {
+    public void addSpaceMarine(SpaceMarine SpaceMarine) {
         writeLock.lock();
-        dragons.add(dragon);
+        SpaceMarines.add(SpaceMarine);
         writeLock.unlock();
     }
 
-    /**
-     * Метод, очищающий текущую коллекцию
-     */
     public void clear(String username) {
         readLock.lock();
-        dragons.removeIf(dragon -> dragon.getAuthorName().equals(username));
+        SpaceMarines.removeIf(SpaceMarine -> SpaceMarine.getAuthorName().equals(username));
         readLock.unlock();
     }
 
-    /**
-     * Метод, удаляющий дракона из коллекции по полученному ID, если таковой существует
-     *
-     * @param id id дракона, которого нужно удалить
-     */
     public String removeById(long id) {
         writeLock.lock();
         try {
-            Dragon dragon = getById(id);
-            if (dragon != null) {
-                dragons.remove(dragon);
-                return TextFormatter.colorMessage("Dragon successfully removed");
+            SpaceMarine SpaceMarine = getById(id);
+            if (SpaceMarine != null) {
+                SpaceMarines.remove(SpaceMarine);
+                return TextFormatter.colorMessage("SpaceMarine successfully removed");
             } else {
-                return TextFormatter.colorErrorMessage("Dragon with that ID not found");
+                return TextFormatter.colorErrorMessage("SpaceMarine with that ID not found");
             }
         } catch (NumberFormatException e) {
             return TextFormatter.colorErrorMessage("ID имеет некорректный формат");
@@ -95,52 +61,49 @@ public class CollectionManager {
         }
     }
 
-    public Dragon getById(Long id) {
+    public SpaceMarine getById(Long id) {
         readLock.lock();
         try {
-            return dragons.stream().filter(dr -> dr.getId().equals(id)).findAny().orElse(null);
+            return SpaceMarines.stream().filter(sm -> sm.getId()==id).findAny().orElse(null);
         } finally {
             readLock.unlock();
         }
     }
 
-    /**
-     * Метод, выводящий пользователю информацию о коллекции
-     */
     public String showInfo() {
         readLock.lock();
         try {
             return TextFormatter.colorInfoMessage("Information about collection: ")
-                    + TextFormatter.colorMessage("Collection type: " + dragons.getClass()
+                    + TextFormatter.colorMessage("Collection type: " + SpaceMarines.getClass()
                     + " initialization date: " + creationDate
-                    + " count of dragons: " + dragons.size());
+                    + " count of SpaceMarines: " + SpaceMarines.size());
         } finally {
             readLock.unlock();
         }
     }
 
-    public Dragon getMaxByCave(String username) {
+    public SpaceMarine getMaxByChapter(String username) {
         readLock.lock();
         try {
-            return dragons.stream().filter(((d) -> d.getAuthorName().equals(username))).max(Dragon::compareByCave).get();
+            return SpaceMarines.stream().filter(((d) -> d.getAuthorName().equals(username))).max(SpaceMarine::compareByChapter).get();
         } finally {
             readLock.unlock();
         }
     }
 
-    public Dragon getMax() {
+    public SpaceMarine getMax() {
         readLock.lock();
         try {
-            return dragons.stream().max(Dragon::compareTo).get();
+            return SpaceMarines.stream().max(SpaceMarine::compareTo).get();
         } finally {
             readLock.unlock();
         }
     }
 
-    public Dragon getMin() {
+    public SpaceMarine getMin() {
         readLock.lock();
         try {
-            return dragons.stream().min(Dragon::compareTo).get();
+            return SpaceMarines.stream().min(SpaceMarine::compareTo).get();
         } finally {
             readLock.unlock();
         }
