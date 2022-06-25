@@ -28,8 +28,4 @@ public class DatabaseConnector {
         }
         return DriverManager.getConnection(url, username, password);
     }
-
-    public void createDatabase() {
-
-    }
 }

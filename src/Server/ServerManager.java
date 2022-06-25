@@ -2,9 +2,7 @@ package Server;
 
 import Common.requestSystem.requests.Request;
 import Common.requestSystem.responses.Response;
-import Server.databaseHandlers.DatabaseConnector;
-import Server.databaseHandlers.DatabaseInitializer;
-
+import Server.databaseHandlers.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.*;
@@ -20,9 +18,9 @@ import java.util.function.Supplier;
 
 public class ServerManager {
 
-//    to use on PC
+    private static final String password = System.getenv("password");
     private static final DatabaseConnector CONNECTOR =
-            new DatabaseConnector("jdbc:postgresql://localhost:5432/lab7",
+            new DatabaseConnector("jdbc:postgresql://localhost:5432/postgres",
                     "postgres", "Aa290103");
     private static final int THREADS = Runtime.getRuntime().availableProcessors();
     private static boolean isWorking = true;
@@ -33,16 +31,16 @@ public class ServerManager {
     private volatile Selector selector;
     private volatile Set<SelectionKey> workingKeys = Collections.synchronizedSet(new HashSet<>());
 
-    public void run() {
-        try {
+    public void run() throws SQLException {
+     //   try {
             dbConnection = CONNECTOR.getNewConnection();
             DatabaseInitializer initializer = new DatabaseInitializer(dbConnection);
             initializer.initialize();
             initializer.fillCollection(dbConnection);
-        } catch (SQLException e) {
+      /*  } catch (SQLException e) {
             ServerConfig.logger.info("Problems during SQL DB initialization");
             isWorking = false;
-        }
+        } */
         ConsoleThread consoleThread = new ConsoleThread();
         if (isWorking) {
             consoleThread.start();

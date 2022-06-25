@@ -38,7 +38,7 @@ public class CommandFactory {
                 case "info":
                 case "print_ascending":
                 case "print_descending":
-                case "max_by_cave":
+                case "max_by_chapter":
                 case "show":
                     if (args.size() != 0) {
                         return null;

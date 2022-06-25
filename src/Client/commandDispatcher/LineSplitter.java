@@ -3,9 +3,6 @@ package Client.commandDispatcher;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Класс, отвечающий за корректное разделение строки при чтении команд и их аргументов от пользователя
- */
 public final class LineSplitter {
 
     private LineSplitter() {}

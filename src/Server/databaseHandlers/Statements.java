@@ -1,37 +1,37 @@
 package Server.databaseHandlers;
 
 public enum Statements {
-    addSpaceMarine("INSERT INTO s335103Dragons " +
-            "(id, name, creationDate, age, wingspan, xCoord, yCoord, color, caveDepth," +
-            "caveNumOfTreasures, dragonCharacter, author) " +
+    addSpaceMarine("INSERT INTO s337017SpaceMarines " +
+            "(id, name, creationDate, health, achievements, xCoord, yCoord, astartesCategory, weaponType, chapterName, chapterLegion, chapterMarinesCount, author" +
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
 
-    checkUserInData("SELECT * FROM s335103Users WHERE (name=? AND password=?);"),
+    checkUserInData("SELECT * FROM s337017Users WHERE (name=? AND password=?);"),
 
-    addUserToData("INSERT INTO s335103Users (name, password) VALUES(?, ?)"),
+    addUserToData("INSERT INTO s337017Users (name, password) VALUES(?, ?)"),
 
-    clearByUser("DELETE FROM s335103Dragons WHERE (author=?) RETURNING s335103Dragons.id;"),
+    clearByUser("DELETE FROM s337017SpaceMarines WHERE (author=?) RETURNING s337017SpaceMarines.id;"),
 
-    getAllForUser("SELECT * FROM s335103Dragons WHERE author=?;"),
+    getAllForUser("SELECT * FROM s337017SpaceMarines WHERE author=?;"),
 
-    removeById("DELETE FROM s335103Dragons WHERE (author=? AND id=?) RETURNING s335103Dragons.id;"),
+    removeById("DELETE FROM s337017SpaceMarines WHERE (author=? AND id=?) RETURNING s337017SpaceMarines.id;"),
 
-    updateById("UPDATE s335103Dragons " +
+    updateById("UPDATE s337017SpaceMarines " +
             "SET name = ?, " +
             "creationDate = ?, " +
-            "age = ?, " +
-            "wingspan = ?, " +
+            "health = ?, " +
+            "achievements = ?, " +
             "xCoord = ?, " +
             "yCoord = ?, " +
-            "color = ?, " +
-            "caveDepth = ?, " +
-            "caveNumOfTreasures = ?, " +
-            "dragonCharacter = ? " +
-            "WHERE (id=? AND author=?) RETURNING s335103Dragons.id;"),
+            "astartesCategory = ?, " +
+            "weapoType = ?, " +
+            "chapterName = ?, " +
+            "chapterLegion = ?, " +
+            "chapterMarinesCount = ? " +
+            "WHERE (id=? AND author=?) RETURNING s337017SpaceMarines.id;"),
 
     getNextId("SELECT nextval('ids')"),
 
-    getAll("SELECT * FROM s335103Dragons;");
+    getAll("SELECT * FROM s337017SpaceMarines;");
 
     private final String statement;
 

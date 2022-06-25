@@ -12,7 +12,7 @@ public class PasswordEncryptor {
         final int radix = 16;
         MessageDigest md = null;
         try {
-            md = MessageDigest.getInstance("MD2");
+            md = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             ServerConfig.logger.info("Cant encrypt password");

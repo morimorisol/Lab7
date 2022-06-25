@@ -82,7 +82,7 @@ public class RequestHandler {
                 return new InfoCommand(databaseWorker);
             case "show":
                 return new ShowCommand(databaseWorker);
-            case "max_by_cave":
+            case "max_by_chapter":
                 return new MaxByChapterCommand(databaseWorker);
             case "print_ascending":
                 return new PrintAscendingCommand(databaseWorker);

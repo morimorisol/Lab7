@@ -9,5 +9,4 @@ public enum RequestType implements Serializable {
     COMMAND_WITH_SPACEMARINE,
     COMMAND_WITH_ID,
     COMMAND_WITH_SPACEMARINE_AND_ID,
-    DISCONNECT
 }
