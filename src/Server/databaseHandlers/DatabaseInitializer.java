@@ -34,15 +34,15 @@ public class DatabaseInitializer {
                 "achievements varchar(70) NOT NULL CHECK (achievements<>'')," +
                 "xCoord int NOT NULL CHECK (xCoord < 603), " +
                 "yCoord real NOT NULL," +
-                "astartsetsCategory varchar(10) " +
-                "CHECK (astartsetsCategory='LIBRARIAN' OR " +
-                "astartsetsCategory='SCOUT' OR " +
-                "astartsetsCategory='INCEPTOR' OR " +
-                "astartsetsCategory='HELIX' OR " +
-                "astartsetsCategory IS NULL)," +
+                "astartesCategory varchar(10) " +
+                "CHECK (astartesCategory='LIBRARIAN' OR " +
+                "astartesCategory='SCOUT' OR " +
+                "astartesCategory='INCEPTOR' OR " +
+                "astartesCategory='HELIX' OR " +
+                "astartesCategory IS NULL)," +
                 "chapterName varchar(70)," +
                 "chapterMarinesCount int NOT NULL CHECK (chapterMarinesCount > 0)," +
-                "weaponType varchar(12) NOT NULL " +
+                "weaponType varchar(20) NOT NULL " +
                 "CHECK (weaponType='HEAVY_BOLTGUN' OR " +
                 "weaponType='BOLT_RIFLE' OR " +
                 "weaponType='COMBI_FLAMER' OR " +

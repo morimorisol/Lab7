@@ -20,8 +20,8 @@ public class ServerManager {
 
     private static final String password = System.getenv("password");
     private static final DatabaseConnector CONNECTOR =
-            new DatabaseConnector("jdbc:postgresql://localhost:5432/lab7",
-                    "postgres", "Aa290103");
+            new DatabaseConnector("jdbc:postgresql://localhost:5432/lab07",
+                    "postgres", password);
     private static final int THREADS = Runtime.getRuntime().availableProcessors();
     private static boolean isWorking = true;
     private final ExecutorService readExecutor = Executors.newFixedThreadPool(THREADS);
