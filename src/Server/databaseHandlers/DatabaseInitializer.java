@@ -52,7 +52,7 @@ public class DatabaseInitializer {
     }
 
     private void createUsersTable() throws SQLException {
-        sqlStatement.executeUpdate("CREATE TABLE IF NOT EXISTS s335103Users (" +
+        sqlStatement.executeUpdate("CREATE TABLE IF NOT EXISTS s337017Users (" +
                 "name varchar(70) PRIMARY KEY NOT NULL," +
                 "password varchar(255) NOT NULL);");
     }
