@@ -6,6 +6,7 @@ import Server.commands.*;
 import Server.databaseHandlers.AuthorizationModule;
 import Server.databaseHandlers.DatabaseWorker;
 import Server.databaseHandlers.UsersChecker;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class RequestHandler {
         }
     }
 
-    public Response handle(Request request) throws IOException, SQLException {
+    public Response handle(Request request) {
         try {
             if (request.getType().equals(RequestType.COMMAND_WITHOUT_ARGS)) {
                 CommandAbstract command = getCommandWithoutArgs((CommandRequestWithoutArgs) request);
@@ -66,6 +67,8 @@ public class RequestHandler {
             ServerConfig.logger.info("Received command is null");
             ServerConfig.logger.info("Response will not write");
             return null;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return null;
     }

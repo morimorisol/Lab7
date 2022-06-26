@@ -20,7 +20,7 @@ public class ServerManager {
 
     private static final String password = System.getenv("password");
     private static final DatabaseConnector CONNECTOR =
-            new DatabaseConnector("jdbc:postgresql://localhost:5432/postgres",
+            new DatabaseConnector("jdbc:postgresql://localhost:5432/lab7",
                     "postgres", "Aa290103");
     private static final int THREADS = Runtime.getRuntime().availableProcessors();
     private static boolean isWorking = true;
@@ -93,12 +93,7 @@ public class ServerManager {
                             .thenApplyAsync(request -> {
                                 if (request != null) {
                                     RequestHandler requestHandler = new RequestHandler(request, dbConnection);
-                                    try {
-                                        return requestHandler.handle(request);
-                                    } catch (IOException | SQLException e) {
-                                        ServerConfig.logger.info("info during request handling");
-                                        return null;
-                                    }
+                                    return requestHandler.handle(request);
                                 } else return null;
                             }, handleExecutor)
                             .thenAcceptAsync(responseSender, sendExecutor);

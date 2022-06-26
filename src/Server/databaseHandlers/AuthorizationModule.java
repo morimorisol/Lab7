@@ -13,7 +13,6 @@ public class AuthorizationModule {
     private final Connection connection;
     private final Request request;
     private final PasswordEncryptor passwordEncryptor = new PasswordEncryptor();
-
     private final boolean correctUser;
 
     public AuthorizationModule(SignInRequest signInRequest, Connection connection) throws SQLException {
