@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HelpCommand extends CommandAbstract {
-    /**
-     * Словарь, сопоставляющий доступные команды с соответствующими командами
-     */
     private static final Map<String, String> COMMANDS = new HashMap<>();
 
     public HelpCommand(DatabaseWorker databaseWorker) {
@@ -24,19 +21,19 @@ public class HelpCommand extends CommandAbstract {
     }
 
     private static void fillCommandsForBuildList() {
-        COMMANDS.put("add [name, age, wingspan]", "add new dragon");
-        COMMANDS.put("add_if_max [name, age, wingspan]", "add new dragon if him age is max");
-        COMMANDS.put("add_if_min [name, age, wingspan]", "add new dragon if him age is min");
+        COMMANDS.put("add [name, health, achievements]", "add new marine");
+        COMMANDS.put("add_if_max [name, health, achievements]", "add new marine if him age is max");
+        COMMANDS.put("add_if_min [name, health, achievements]", "add new marine if him age is min");
         COMMANDS.put("clear", "clear collection");
         COMMANDS.put("help", "get list of available commands");
         COMMANDS.put("history", "get 11 last commands");
         COMMANDS.put("info", "get info about collection");
-        COMMANDS.put("max_by_cave", "get dragon with the deepest cave");
-        COMMANDS.put("print_ascending", "show dragons from youngest to the oldest");
-        COMMANDS.put("print_descending", "show dragons from oldest to the youngest");
-        COMMANDS.put("remove_by_id [id]", "remove dragon with given ID");
-        COMMANDS.put("show", "show all dragons in collection");
-        COMMANDS.put("update_by_id [id]", "update info about dragon with given ID");
+        COMMANDS.put("max_by_chapter", "get marine with the best chapter");
+        COMMANDS.put("print_ascending", "show marines from the healthiest to the less healthy");
+        COMMANDS.put("print_descending", "show marines from less healthy to the healthiest");
+        COMMANDS.put("remove_by_id [id]", "remove marine with given ID");
+        COMMANDS.put("show", "show all marines in collection");
+        COMMANDS.put("update_by_id [id]", "update info about marine with given ID");
     }
 
     private static String getCommands() {

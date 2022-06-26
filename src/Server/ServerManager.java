@@ -31,16 +31,16 @@ public class ServerManager {
     private volatile Selector selector;
     private volatile Set<SelectionKey> workingKeys = Collections.synchronizedSet(new HashSet<>());
 
-    public void run() throws SQLException {
-     //   try {
+    public void run() {
+        try {
             dbConnection = CONNECTOR.getNewConnection();
             DatabaseInitializer initializer = new DatabaseInitializer(dbConnection);
             initializer.initialize();
             initializer.fillCollection(dbConnection);
-      /*  } catch (SQLException e) {
+        } catch (SQLException e) {
             ServerConfig.logger.info("Problems during SQL DB initialization");
             isWorking = false;
-        } */
+        }
         ConsoleThread consoleThread = new ConsoleThread();
         if (isWorking) {
             consoleThread.start();
